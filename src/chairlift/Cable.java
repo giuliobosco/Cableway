@@ -53,7 +53,7 @@ public class Cable {
     /**
      * Chair lift on the cable.
      */
-    private List<Thread> chairLifts;
+    private List<ChairLift> chairLifts;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -110,12 +110,12 @@ public class Cable {
     /**
      * Add an chair lift on Id.
      *
-     * @param index        Id of the chair lift.
+     * @param index     Id of the chair lift.
      * @param chairLift Chair lift to add.
      * @return Added chair lift.
      * @throws ChairLiftOnWrongPlaceException If the index is not valid throws exception.
      */
-    public synchronized Thread addChairLift(int index, Thread chairLift) throws ChairLiftOnWrongPlaceException {
+    public synchronized ChairLift addChairLift(int index, ChairLift chairLift) throws ChairLiftOnWrongPlaceException {
         synchronized (this) {
             if (index > 0) {
                 if (index < this.getNumberOfChairLifts()) {
@@ -138,7 +138,7 @@ public class Cable {
      * @return Appended chair lift.
      * @throws ChairLiftOnWrongPlaceException If the cable is full do not append chair lift.
      */
-    public synchronized Thread appendChairLift(Thread chairLift) throws ChairLiftOnWrongPlaceException {
+    public synchronized ChairLift appendChairLift(ChairLift chairLift) throws ChairLiftOnWrongPlaceException {
         synchronized (this) {
             if (this.chairLifts.size() < this.getNumberOfChairLifts()) {
                 this.chairLifts.add(chairLift);
@@ -156,7 +156,7 @@ public class Cable {
      * @param chairLift Chair lift to remove from the cable.
      * @return Removed chair lift.
      */
-    public synchronized Thread removeChairLift(Thread chairLift) {
+    public synchronized ChairLift removeChairLift(ChairLift chairLift) {
         synchronized (this) {
             this.chairLifts.remove(chairLift);
 
@@ -170,9 +170,9 @@ public class Cable {
      * @param index Index of the chair lift to remove.
      * @return Removed chair lift.
      */
-    public synchronized Thread removeChairLift(int index) {
+    public synchronized ChairLift removeChairLift(int index) {
         synchronized (this) {
-            Thread removed = this.chairLifts.get(index);
+            ChairLift removed = this.chairLifts.get(index);
             this.removeChairLift(removed);
 
             return removed;

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * @author giuliobosco
  * @version 1.0
  */
@@ -44,7 +44,7 @@ public class ChairLift {
     /**
      * SkiPasses on the chair lift.
      */
-    private List<Thread> skiPasses;
+    private List<SkiPass> skiPasses;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -62,7 +62,7 @@ public class ChairLift {
      *
      * @return SkiPasses on the chair lift.
      */
-    public List<Thread> getSkiPasses() {
+    public List<SkiPass> getSkiPasses() {
         return this.skiPasses;
     }
 
@@ -87,7 +87,7 @@ public class ChairLift {
      * Remove all SkiPasses from the chair lift.
      */
     public void emptyChairLift() {
-        for (Thread skiPass : this.skiPasses) {
+        for (SkiPass skiPass : this.skiPasses) {
             this.skiPasses.remove(skiPass);
         }
     }
