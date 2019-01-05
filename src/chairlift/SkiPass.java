@@ -42,6 +42,11 @@ public class SkiPass implements Runnable {
      */
     private double verticalMeters;
 
+    /**
+     * Name of the SkiPass.
+     */
+    private String name;
+
     // --------------------------------------------------------------------------- Getters & Setters
 
     /**
@@ -78,7 +83,25 @@ public class SkiPass implements Runnable {
      * @return Vertical Meters of the SkiPass.
      */
     public double getVerticalMeters() {
-        return verticalMeters;
+        return this.verticalMeters;
+    }
+
+    /**
+     * Set the name of the SkiPass.
+     *
+     * @param name Name of the SkiPass.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Get the name of the SkiPass.
+     *
+     * @return Name of the SkiPass.
+     */
+    public String getName() {
+        return this.name;
     }
 
     // -------------------------------------------------------------------------------- Constructors
