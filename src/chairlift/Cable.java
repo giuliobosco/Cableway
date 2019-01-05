@@ -132,6 +132,25 @@ public class Cable extends Thread {
     }
 
     /**
+     * Append to the cable a chair lift.
+     *
+     * @param chairLift Chair lift to append.
+     * @return Appended chair lift.
+     * @throws ChairLiftOnWrongPlaceException If the cable is full do not append chair lift.
+     */
+    public synchronized Thread appendChairLift(Thread chairLift) throws ChairLiftOnWrongPlaceException {
+        synchronized (this) {
+            if (this.chairLifts.size() < this.getNumberOfChairLifts()) {
+                this.chairLifts.add(chairLift);
+
+                return chairLift;
+            }
+
+            throw new ChairLiftOnWrongPlaceException("The cable is full, no more space for others chair lifts.");
+        }
+    }
+
+    /**
      * Remove the chair lift from the cable, using the chair lift.
      *
      * @param chairLift Chair lift to remove from the cable.
