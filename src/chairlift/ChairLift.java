@@ -82,6 +82,16 @@ public class ChairLift {
     }
 
     // -------------------------------------------------------------------------------- Help Methods
+
+    /**
+     * Remove all SkiPasses from the chair lift.
+     */
+    public void emptyChairLift() {
+        for (Thread skiPass : this.skiPasses) {
+            this.skiPasses.remove(skiPass);
+        }
+    }
+
     // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
     
