@@ -43,7 +43,7 @@ public class ChairLift {
     /**
      * SkiPasses on the chair lift.
      */
-    private List<SkiPass> SkiPasses;
+    private List<Thread> skiPasses;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -56,6 +56,14 @@ public class ChairLift {
         return this.id;
     }
 
+    /**
+     * Get the SkiPasses on the chair lift.
+     *
+     * @return SkiPasses on the chair lift.
+     */
+    public List<Thread> getSkiPasses() {
+        return this.skiPasses;
+    }
 
     // -------------------------------------------------------------------------------- Constructors
     // -------------------------------------------------------------------------------- Help Methods
