@@ -24,6 +24,7 @@
  
 package chairlift;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,6 +67,20 @@ public class ChairLift {
     }
 
     // -------------------------------------------------------------------------------- Constructors
+
+    /**
+     * Create the chair lift.
+     *
+     * @param id Id of the chair lift.
+     */
+    public ChairLift(int id) {
+        if (id > 0) {
+            this.id = id;
+        }
+
+        this.skiPasses = new ArrayList<>();
+    }
+
     // -------------------------------------------------------------------------------- Help Methods
     // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
