@@ -31,7 +31,7 @@ import java.util.List;
  * @author giuliobosco
  * @version 1.0
  */
-public class Cable extends Thread {
+public class Cable {
     // ------------------------------------------------------------------------------------ Costants
     // ---------------------------------------------------------------------------------- Attributes
 
