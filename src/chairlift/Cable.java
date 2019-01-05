@@ -156,7 +156,7 @@ public class Cable extends Thread {
      * @param chairLift Chair lift to remove from the cable.
      * @return Removed chair lift.
      */
-    public synchronized Thread removeChairList(Thread chairLift) {
+    public synchronized Thread removeChairLift(Thread chairLift) {
         synchronized (this) {
             this.chairLifts.remove(chairLift);
 
@@ -170,10 +170,10 @@ public class Cable extends Thread {
      * @param index Index of the chair lift to remove.
      * @return Removed chair lift.
      */
-    public synchronized Thread removeChairList(int index) {
+    public synchronized Thread removeChairLift(int index) {
         synchronized (this) {
             Thread removed = this.chairLifts.get(index);
-            this.removeChairList(removed);
+            this.removeChairLift(removed);
 
             return removed;
         }
