@@ -28,7 +28,7 @@ package chairlift;
  * @author giuliobosco
  * @version 1.0
  */
-public class SkiPass implements Runnable {
+public class SkiPass {
     // ------------------------------------------------------------------------------------ Costants
     // ---------------------------------------------------------------------------------- Attributes
 
@@ -128,12 +128,6 @@ public class SkiPass implements Runnable {
     }
 
     // ----------------------------------------------------------------------------- General Methods
-
-    @Override
-    public void run() {
-
-    }
-    
     // --------------------------------------------------------------------------- Static Components
     
 }
