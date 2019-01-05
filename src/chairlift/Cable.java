@@ -110,24 +110,24 @@ public class Cable extends Thread {
     /**
      * Add an chair lift on Id.
      *
-     * @param id        Id of the chair lift.
+     * @param index        Id of the chair lift.
      * @param chairLift Chair lift to add.
      * @return Added chair lift.
-     * @throws ChairLiftOnWrongPlaceException If the id is not valid throws exception.
+     * @throws ChairLiftOnWrongPlaceException If the index is not valid throws exception.
      */
-    public synchronized Thread addChairLift(int id, Thread chairLift) throws ChairLiftOnWrongPlaceException {
+    public synchronized Thread addChairLift(int index, Thread chairLift) throws ChairLiftOnWrongPlaceException {
         synchronized (this) {
-            if (id > 0) {
-                if (id < this.getNumberOfChairLifts()) {
-                    this.chairLifts.add(id, chairLift);
+            if (index > 0) {
+                if (index < this.getNumberOfChairLifts()) {
+                    this.chairLifts.add(index, chairLift);
 
                     return chairLift;
                 }
 
-                throw new ChairLiftOnWrongPlaceException("Too large id of the chair lift");
+                throw new ChairLiftOnWrongPlaceException("Too large index of the chair lift");
             }
 
-            throw new ChairLiftOnWrongPlaceException("The small id of the chair lift");
+            throw new ChairLiftOnWrongPlaceException("The small index of the chair lift");
         }
     }
 
