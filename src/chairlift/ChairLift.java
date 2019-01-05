@@ -38,7 +38,7 @@ public class ChairLift {
     /**
      * Id of the Chair Lift.
      */
-    private int Id;
+    private int id;
 
     /**
      * SkiPasses on the chair lift.
@@ -46,6 +46,17 @@ public class ChairLift {
     private List<SkiPass> SkiPasses;
 
     // --------------------------------------------------------------------------- Getters & Setters
+
+    /**
+     * Get the id of the chair lift.
+     *
+     * @return Id of the chair lift.
+     */
+    public int getId() {
+        return this.id;
+    }
+
+
     // -------------------------------------------------------------------------------- Constructors
     // -------------------------------------------------------------------------------- Help Methods
     // ----------------------------------------------------------------------------- General Methods
