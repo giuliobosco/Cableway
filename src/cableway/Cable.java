@@ -140,6 +140,23 @@ public class Cable {
     // -------------------------------------------------------------------------------- Help Methods
 
     /**
+     * Execute the check on the cable.
+     *
+     * @throws CableException Cable speed or position errors.
+     */
+    public void checkCable() throws CableException {
+        if (this.getPosition() > this.getLength() || this.getPosition() < 0) {
+            throw CableException.cablePositionException(this);
+        }
+
+        if (this.getSpeed() > MAX_SPEED || this.getSpeed() < -MAX_SPEED) {
+            throw CableException.cableSpeedException(this);
+        }
+    }
+
+    // ----------------------------------------------------------------------------- General Methods
+
+    /**
      * Increment the position of the cable.
      *
      * @param x Value to increment.
@@ -187,6 +204,5 @@ public class Cable {
         }
     }
 
-    // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
 }
