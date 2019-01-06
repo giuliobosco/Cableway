@@ -28,7 +28,7 @@ import cableway.cable.Cable;
 
 /**
  * @author giuliobosco
- * @version 1.0.2
+ * @version 1.0.3
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -141,7 +141,7 @@ public class Cabin extends Thread {
      *
      * @throws CabinWeightException Cabin weight exception, not valid weight.
      */
-    public void checkWeight() throws CabinWeightException {
+    public void checkWeigth() throws CabinWeightException {
         checkWeigth(this.weight);
     }
 
@@ -205,6 +205,20 @@ public class Cabin extends Thread {
      */
     public void closeRightDoor() {
         this.rightDoorOpen = false;
+    }
+
+    /**
+     * Check the cabin.
+     *
+     * @throws CabinWeightException Cabin weight exception, not valid weight.
+     * @throws CabinDoorException Cabin door exception, doors open while moving.
+     * @throws CablePositionException Cable position exception, the cable has a wrong position.
+     * @throws CableSpeedException Cable speed exception, the speed is out of the bounds.
+     */
+    private void checkCabin() throws CabinWeightException, CabinDoorException, CablePositionException, CableSpeedException {
+        this.checkWeigth();
+        this.checkDoors();
+        this.getCable().checkCable();
     }
 
     // ----------------------------------------------------------------------------- General Methods
