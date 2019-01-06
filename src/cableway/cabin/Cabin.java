@@ -24,6 +24,7 @@
 
 package cableway.cabin;
 
+import cableway.CablewayException;
 import cableway.cable.Cable;
 import cableway.cable.CablePositionException;
 import cableway.cable.CableSpeedException;
@@ -34,7 +35,7 @@ import java.util.List;
 
 /**
  * @author giuliobosco
- * @version 1.0.4
+ * @version 1.0.5
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -134,12 +135,9 @@ public class Cabin extends Thread {
      * Set the cabin to ready to start.
      *
      * @param ready Cabin ready to start.
-     * @throws CabinWeightException   Cabin weight exception, not valid weight.
-     * @throws CabinDoorException     Cabin door exception, doors open while moving.
-     * @throws CablePositionException Cable position exception, the cable has a wrong position.
-     * @throws CableSpeedException    Cable speed exception, the speed is out of the bounds.
+     * @throws CablewayException Exception in the cable way, cabin or cable problems.
      */
-    public void setReady(boolean ready) throws CabinWeightException, CabinDoorException, CablePositionException, CableSpeedException {
+    public void setReady(boolean ready) throws CablewayException {
         if (ready) {
             this.checkCabin();
 
