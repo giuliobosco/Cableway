@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package cableway;
+package cableway.cable;
 
 /**
  * Cableway cable, used as lock for synchronization.

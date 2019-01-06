@@ -22,7 +22,10 @@
  * THE SOFTWARE.
  */
 
-package cableway;
+package cableway.cable;
+
+import cableway.CablewayException;
+import cableway.cabin.CabinException;
 
 /**
  * @author giuliobosco
