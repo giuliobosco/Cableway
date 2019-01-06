@@ -145,6 +145,30 @@ public class CablewayException extends Exception {
     }
 
     // -------------------------------------------------------------------------------- Help Methods
+
+    /**
+     * Translate the exception status code in status string. If the code not exists returns always
+     * FATAL.
+     *
+     * @param code Exception status code.
+     * @return Exception status string.
+     */
+    public static String codeToString(int code) {
+        if (code == FATAL) {
+            return FATAL_TEXT;
+        } else if (code == DANGER) {
+            return DANGER_TEXT;
+        } else if (code == WARRING) {
+            return WARRING_TEXT;
+        } else if (code == INFO) {
+            return INFO_TEXT;
+        } else if (code == OK) {
+            return OK_TEXT;
+        } else {
+            return FATAL_TEXT;
+        }
+    }
+
     // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
 
