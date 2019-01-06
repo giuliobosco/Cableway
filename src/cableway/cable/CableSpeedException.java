@@ -78,7 +78,7 @@ public class CableSpeedException extends CablewayException {
      * @return Exception status code.
      */
     private static int getStatus(Cable source) {
-        double difference = getDiffference(source.getSpeed());
+        double difference = getDiffference(source);
 
         if (difference <= 0) {
             return CablewayException.OK;
@@ -100,7 +100,7 @@ public class CableSpeedException extends CablewayException {
      * @return Exception message.
      */
     private static String fixMessage(Cable source) {
-        double difference = getDiffference(source.getSpeed());
+        double difference = getDiffference(source);
 
         int exceptionStuatus = getStatus(source);
         String message = CablewayException.codeToString(exceptionStuatus);
