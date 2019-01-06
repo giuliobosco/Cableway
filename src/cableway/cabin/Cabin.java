@@ -46,9 +46,29 @@ public class Cabin extends Thread {
     public final static String READY = "READY";
 
     /**
+     * Cabin moved command.
+     */
+    public final static String MOVED = "MOVED";
+
+    /**
+     * Interrupted exception command.
+     */
+    public final static String INTERRUPTED_EXCEPTION = "IE";
+
+    /**
+     * Cableway exception command.
+     */
+    public final static String CABLEWAY_EXCEPTION = "CB";
+
+    /**
      * Max weight in the cabin.
      */
     public final static double MAX_WEIGHT = 7000;
+
+    /**
+     * Time between cabin checks, 200 milliseconds.
+     */
+    public final static long CABIN_CHECK = 200;
 
     // ---------------------------------------------------------------------------------- Attributes
 
@@ -340,6 +360,36 @@ public class Cabin extends Thread {
         Thread.sleep(50);
         this.openRightDoor();
         Thread.sleep(50);
+    }
+
+    /**
+     * Run method of the class.
+     */
+    @Override
+    public void run() {
+        long lastTick = System.currentTimeMillis();
+        double position = this.cable.getPosition();
+
+        boolean flag = true;
+        try {
+            while (flag) {
+                if (!(position == this.cable.getPosition())) {
+                    this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, MOVED));
+                    position = this.cable.getPosition();
+                }
+
+                this.checkCabin();
+
+                Thread.sleep(CABIN_CHECK);
+                if (this.isInterrupted()) {
+                    flag = false;
+                }
+            }
+        } catch (InterruptedException ie) {
+            this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, INTERRUPTED_EXCEPTION));
+        } catch (CablewayException cb) {
+            this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, CABLEWAY_EXCEPTION));
+        }
     }
 
     // --------------------------------------------------------------------------- Static Components
