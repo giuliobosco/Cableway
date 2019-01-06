@@ -27,13 +27,15 @@ package cableway.cable;
 import cableway.CablewayException;
 
 /**
+ * Cable Position Exception.
+ *
  * @author giuliobosco
- * @version 1.0
+ * @version 1.1
  */
 public class CablePositionException extends CablewayException {
 
     /**
-     * Create cable exception with exception message.
+     * Create cable position exception with exception message.
      *
      * @param message Exception message.
      */
@@ -42,9 +44,10 @@ public class CablePositionException extends CablewayException {
     }
 
     /**
-     * Create cable exception, generating exception message with the exception object source.
+     * Create cable position exception, generating exception message with the exception object
+     * source.
      *
-     * @param source Cable source object.
+     * @param source Exception object source.
      */
     public CablePositionException(Cable source) {
         this(fixMessage(source));
@@ -84,7 +87,7 @@ public class CablePositionException extends CablewayException {
     /**
      * Parse the message from the cable object.
      *
-     * @param source Cabin source object.
+     * @param source Exception object source.
      * @return Exception message.
      */
     private static String fixMessage(Cable source) {

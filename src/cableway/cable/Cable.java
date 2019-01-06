@@ -25,17 +25,17 @@
 package cableway.cable;
 
 /**
- * Cableway cable, used as lock for synchronization.
+ * Cableway cable, keep the length, the position and the speed of the cableway cable.
  *
  * @author giuliobosco
- * @version 1.0
+ * @version 1.1
  */
 public class Cable {
 
     // ------------------------------------------------------------------------------------ Costants
 
     /**
-     * change the cabin speed of the percentage to the current speed.
+     * Change the cabin speed of the percentage to the current speed.
      */
     public final static double SPEED_EDIT = 0.05;
 
@@ -52,8 +52,7 @@ public class Cable {
     private double lenght;
 
     /**
-     * Position of the cable, all methods reported this attribute are synchronized, for keep a
-     * coherent value.
+     * Position of the cable.
      */
     private double position;
 
@@ -66,6 +65,7 @@ public class Cable {
 
     /**
      * Set the length of the cable.
+     * Checks that the length is a real value, so bigger than 0.
      *
      * @param length Length of the cable.
      */
@@ -85,7 +85,9 @@ public class Cable {
     }
 
     /**
-     * Set the position of the cable, synchronized me.
+     * Set the position of the cable.
+     * Check that the position has a valid value, so bigger than 0 and smaller than the length of
+     * the cable.
      *
      * @param position Position of the cable.
      */
@@ -106,6 +108,8 @@ public class Cable {
 
     /**
      * Set the speed of the cable.
+     * Check that the speed has a valid value, so bigger than maximum speed and smaller than the
+     * maximum speed.
      *
      * @param speed Speed of the cable.
      */
@@ -128,6 +132,7 @@ public class Cable {
 
     /**
      * Create the cable, with the length of the cable.
+     * Sets position to 0 and speed too.
      *
      * @param length Length of the cable.
      */
@@ -153,8 +158,6 @@ public class Cable {
             throw new CableSpeedException(this);
         }
     }
-
-    // ----------------------------------------------------------------------------- General Methods
 
     /**
      * Increment the position of the cable.
@@ -204,5 +207,6 @@ public class Cable {
         }
     }
 
+    // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
 }

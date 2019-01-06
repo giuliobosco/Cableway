@@ -27,13 +27,15 @@ package cableway.cable;
 import cableway.CablewayException;
 
 /**
+ * Cable speed exception.
+ *
  * @author giuliobosco
- * @version 1.0
+ * @version 1.1
  */
 public class CableSpeedException extends CablewayException {
 
     /**
-     * Create cable exception with exception message.
+     * Create cable speed exception with exception message.
      *
      * @param message Exception message.
      */
@@ -42,9 +44,9 @@ public class CableSpeedException extends CablewayException {
     }
 
     /**
-     * Create cable exception, generating exception message with the exception object source.
+     * Create cable speed exception, generating exception message with the exception object source.
      *
-     * @param source Cable source object.
+     * @param source Exception object source.
      */
     public CableSpeedException(Cable source) {
         this(fixMessage(source));
@@ -54,16 +56,16 @@ public class CableSpeedException extends CablewayException {
     }
 
     /**
-     * Get the difference between the limit and the value.
+     * Get the difference between the speed limit and the speed.
      *
-     * @param value Speed value.
+     * @param source Exception object source.
      * @return Difference between the limit and the value.
      */
-    private static double getDiffference(double value) {
-        if (value > Cable.MAX_SPEED) {
-            return value - Cable.MAX_SPEED;
-        } else if (value < -Cable.MAX_SPEED) {
-            return -value - Cable.MAX_SPEED;
+    private static double getDiffference(Cable source) {
+        if (source.getSpeed() > Cable.MAX_SPEED) {
+            return source.getSpeed() - Cable.MAX_SPEED;
+        } else if (source.getSpeed() < -Cable.MAX_SPEED) {
+            return -source.getSpeed() - Cable.MAX_SPEED;
         } else {
             return 0;
         }
@@ -94,7 +96,7 @@ public class CableSpeedException extends CablewayException {
     /**
      * Parse the message from the cable object.
      *
-     * @param source Cabin source object.
+     * @param source Exception object source.
      * @return Exception message.
      */
     private static String fixMessage(Cable source) {
