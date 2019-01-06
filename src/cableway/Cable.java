@@ -120,6 +120,8 @@ public class Cable {
      */
     public Cable(double length) {
         this.setLength(length);
+        this.setPosition(0);
+        this.setSpeed(0);
     }
 
     // -------------------------------------------------------------------------------- Help Methods
