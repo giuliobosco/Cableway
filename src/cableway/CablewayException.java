@@ -34,22 +34,94 @@ public class CablewayException extends Exception {
     // ------------------------------------------------------------------------------------ Costants
 
     /**
-     * Danger String.
+     * Fatal exception status.
      */
-    public static final String DANGER = "DANGER!! ";
+    public static final int FATAL = 0;
 
     /**
-     * Warring String.
+     * Fatal exception status string.
      */
-    public static final String WARRING = "WARRING!! ";
+    public static final String FATAL_TEXT = "FATAL!";
 
     /**
-     * Ok exception string.
+     * Danger exception status.
      */
-    public static final String OK = "OK!! ";
+    public static final int DANGER = 1;
+
+    /**
+     * Danger exception status string.
+     */
+    public static final String DANGER_TEXT = "DANGER! ";
+
+    /**
+     * Warring exception status.
+     */
+    public static final int WARRING = 2;
+
+    /**
+     * Warring exception status string.
+     */
+    public static final String WARRING_TEXT = "WARRING! ";
+
+    /**
+     * Info exception status.
+     */
+    public static final int INFO = 3;
+
+    /**
+     * Info exception status string.
+     */
+    public static final String INFO_TEXT = "INFO!";
+
+    /**
+     * Ok exception status.
+     */
+    public static final int OK = 4;
+
+    /**
+     * Ok exception status string.
+     */
+    public static final String OK_TEXT = "OK! ";
 
     // ---------------------------------------------------------------------------------- Attributes
+
+    /**
+     * Exception status.
+     * Available statuses.
+     * <ul>
+     * <li>OK: 4</li>
+     * <li>INFO: 3</li>
+     * <li>WARRING: 2</li>
+     * <li>DANGER: 1</li>
+     * <li>FATAL: 0</li>
+     * </ul>
+     */
+    private int exceptionStatus;
+
     // --------------------------------------------------------------------------- Getters & Setters
+
+    /**
+     * Get the exception status.
+     *
+     * @return Exception status.
+     */
+    public int getExceptionStatus() {
+        return this.exceptionStatus;
+    }
+
+    /**
+     * Set the exception status and check that is a real status.
+     *
+     * @param exceptionStatus Exception status.
+     */
+    protected void setExceptionStatus(int exceptionStatus) {
+        if (exceptionStatus == OK || exceptionStatus == INFO || exceptionStatus == WARRING || exceptionStatus == DANGER || exceptionStatus == FATAL) {
+            this.exceptionStatus = exceptionStatus;
+        } else {
+            this.exceptionStatus = FATAL;
+        }
+    }
+
     // -------------------------------------------------------------------------------- Constructors
 
     /**
@@ -59,6 +131,17 @@ public class CablewayException extends Exception {
      */
     public CablewayException(String message) {
         super(message);
+    }
+
+    /**
+     * Create cableway exception with the exception message.
+     *
+     * @param message         Exception message.
+     * @param exceptionStatus Exception status.
+     */
+    public CablewayException(String message, int exceptionStatus) {
+        this(message);
+        this.setExceptionStatus(exceptionStatus);
     }
 
     // -------------------------------------------------------------------------------- Help Methods
