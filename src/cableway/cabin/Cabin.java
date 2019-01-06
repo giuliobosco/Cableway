@@ -34,10 +34,15 @@ import java.util.List;
 
 /**
  * @author giuliobosco
- * @version 1.0.3
+ * @version 1.0.4
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
+
+    /**
+     * Cabin ready to start command.
+     */
+    public final static String READY = "READY";
 
     /**
      * Max weight in the cabin.
@@ -65,6 +70,11 @@ public class Cabin extends Thread {
      * Status of the right door of the cabin.
      */
     private boolean rightDoorOpen;
+
+    /**
+     * Cabin ready to start.
+     */
+    private boolean ready;
 
     /**
      * Action listeners list.
@@ -118,6 +128,34 @@ public class Cabin extends Thread {
      */
     public boolean isRightDoorOpen() {
         return this.rightDoorOpen;
+    }
+
+    /**
+     * Set the cabin to ready to start.
+     *
+     * @param ready Cabin ready to start.
+     * @throws CabinWeightException   Cabin weight exception, not valid weight.
+     * @throws CabinDoorException     Cabin door exception, doors open while moving.
+     * @throws CablePositionException Cable position exception, the cable has a wrong position.
+     * @throws CableSpeedException    Cable speed exception, the speed is out of the bounds.
+     */
+    public void setReady(boolean ready) throws CabinWeightException, CabinDoorException, CablePositionException, CableSpeedException {
+        if (ready) {
+            this.checkCabin();
+
+            this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, READY));
+        }
+
+        this.ready = ready;
+    }
+
+    /**
+     * Get the cabin ready to start.
+     *
+     * @return Cabin ready to start.
+     */
+    public boolean isReady() {
+        return this.ready;
     }
 
     /**
@@ -232,14 +270,18 @@ public class Cabin extends Thread {
      * Open the left door of the cabin. Sets leftDoorOpen to true.
      */
     public void openLeftDoor() {
-        this.leftDoorOpen = true;
+        if (this.isReady()) {
+            this.leftDoorOpen = true;
+        }
     }
 
     /**
      * Open the right door of the cabin. Sets rightDoorOpen to true.
      */
     public void openRightDoor() {
-        this.rightDoorOpen = true;
+        if (this.isReady()) {
+            this.rightDoorOpen = true;
+        }
     }
 
     /**
