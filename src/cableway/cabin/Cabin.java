@@ -136,6 +136,16 @@ public class Cabin extends Thread {
     }
 
     /**
+     * check the weight.
+     * Must be a valid weight, bigger than 0 and smaller than the maximum weight.
+     *
+     * @throws CabinWeightException Cabin weight exception, not valid weight.
+     */
+    public void checkWeight() throws CabinWeightException {
+        checkWeigth(this.weight);
+    }
+
+    /**
      * Increment the weight of the cabin of the x value.
      *
      * @param x Value increment to the weight.
