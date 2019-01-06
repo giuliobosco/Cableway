@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
- 
+
 package cableway;
 
 /**
@@ -33,6 +33,17 @@ package cableway;
 public class Cable {
 
     // ------------------------------------------------------------------------------------ Costants
+
+    /**
+     * change the cabin speed of the percentage to the current speed.
+     */
+    public final static double SPEED_EDIT = 0.05;
+
+    /**
+     * Maximum speed of the cabin, in kilometer per hour [km/h].
+     */
+    public final static double MAX_SPEED = 23.2;
+
     // ---------------------------------------------------------------------------------- Attributes
 
     /**
@@ -99,7 +110,9 @@ public class Cable {
      * @param speed Speed of the cable.
      */
     public void setSpeed(double speed) {
-        this.speed = speed;
+        if (speed >= -MAX_SPEED && speed <= MAX_SPEED) {
+            this.speed = speed;
+        }
     }
 
     /**
@@ -129,7 +142,7 @@ public class Cable {
     /**
      * Increment the position of the cable.
      *
-     *  @param x Value to increment.
+     * @param x Value to increment.
      */
     public void incrementPosition(double x) {
         this.position += x;
@@ -146,20 +159,32 @@ public class Cable {
 
     /**
      * Increment the speed of the cable.
-     *
-     * @param x Value to increment.
      */
-    public void incrementSpeed(double x) {
-        this.speed += x;
+    public void incrementSpeed() {
+        if (this.getSpeed() == 0) {
+            this.speed++;
+        }
+
+        if (this.getSpeed() > 0) {
+            this.setSpeed(this.getSpeed() + this.getSpeed() * SPEED_EDIT);
+        } else {
+            this.setSpeed(this.getSpeed() - this.getSpeed() * SPEED_EDIT);
+        }
     }
 
     /**
      * Decrement the speed of the cable.
-     *
-     * @param x Value to decrement.
      */
-    public void decrementSpeed(double x) {
-        this.speed -= x;
+    public void decrementSpeed() {
+        if (this.getSpeed() == 0) {
+            this.speed--;
+        }
+
+        if (this.getSpeed() > 0) {
+            this.setSpeed(this.getSpeed() - this.getSpeed() * SPEED_EDIT);
+        } else {
+            this.setSpeed(this.getSpeed() + this.getSpeed() * SPEED_EDIT);
+        }
     }
 
     // ----------------------------------------------------------------------------- General Methods
