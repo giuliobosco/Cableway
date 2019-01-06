@@ -24,6 +24,8 @@
 
 package cableway.cabin;
 
+import cableway.cable.Cable;
+
 /**
  * @author giuliobosco
  * @version 1.0.1
@@ -42,6 +44,11 @@ public class Cabin extends Thread {
      * Weight in the cabin.
      */
     private double weight;
+
+    /**
+     * Cable to the cabin.
+     */
+    private Cable cable;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -65,7 +72,26 @@ public class Cabin extends Thread {
         this.weight = weight;
     }
 
+    /**
+     * Get the cable of the cabin.
+     *
+     * @return Cable of the cabin.
+     */
+    public Cable getCable() {
+        return this.cable;
+    }
+
     // -------------------------------------------------------------------------------- Constructors
+
+    /**
+     * Create the cabin with the cable.
+     *
+     * @param cable Cable of the cabin.
+     */
+    public Cabin(Cable cable) {
+        this.cable = cable;
+    }
+
     // -------------------------------------------------------------------------------- Help Methods
 
     /**
