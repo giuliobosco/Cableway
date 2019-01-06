@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * @author giuliobosco
- * @version 1.0.5
+ * @version 1.0.6
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -311,6 +311,37 @@ public class Cabin extends Thread {
     }
 
     // ----------------------------------------------------------------------------- General Methods
+
+    /**
+     * Start the cabin.
+     *
+     * @throws InterruptedException Interrupt the thread.
+     * @throws CablewayException Cableway exception, cabin or cable exception.
+     */
+    public void startCabin() throws InterruptedException, CablewayException {
+        this.closeLeftDoor();
+        Thread.sleep(50);
+        this.closeRightDoor();
+        Thread.sleep(50);
+
+        this.setReady(true);
+    }
+
+    /**
+     * Stop the cabin.
+     *
+     * @throws InterruptedException Interrupt the thread.
+     * @throws CablewayException Cableway exception, cabin or cable exception.
+     */
+    public void stopCabin() throws InterruptedException, CablewayException {
+        this.setReady(false);
+
+        this.openLeftDoor();
+        Thread.sleep(50);
+        this.openRightDoor();
+        Thread.sleep(50);
+    }
+
     // --------------------------------------------------------------------------- Static Components
 
 }
