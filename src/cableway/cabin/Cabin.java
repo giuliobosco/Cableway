@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * @author giuliobosco
- * @version 1.0.6
+ * @version 1.0.7
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -386,9 +386,9 @@ public class Cabin extends Thread {
                 }
             }
         } catch (InterruptedException ie) {
-            this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, INTERRUPTED_EXCEPTION));
+            this.actionPerformer(new CabinActionEvent(this, ie));
         } catch (CablewayException cb) {
-            this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, CABLEWAY_EXCEPTION));
+            this.actionPerformer(new CabinActionEvent(this, cb));
         }
     }
 
