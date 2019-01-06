@@ -367,7 +367,6 @@ public class Cabin extends Thread {
      */
     @Override
     public void run() {
-        long lastTick = System.currentTimeMillis();
         double position = this.cable.getPosition();
 
         boolean flag = true;
