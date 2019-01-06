@@ -26,7 +26,7 @@ package cableway;
 
 /**
  * Cableway general exception, must to stop the cable and the cabins.
- * 
+ *
  * @author giuliobosco
  * @version 1.0
  */
@@ -42,6 +42,11 @@ public class CablewayException extends Exception {
      * Warring String.
      */
     public static final String WARRING = "WARRING!! ";
+
+    /**
+     * Ok exception string.
+     */
+    public static final String OK = "OK!! ";
 
     // ---------------------------------------------------------------------------------- Attributes
     // --------------------------------------------------------------------------- Getters & Setters
