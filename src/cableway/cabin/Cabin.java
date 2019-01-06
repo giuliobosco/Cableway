@@ -26,7 +26,7 @@ package cableway.cabin;
 
 /**
  * @author giuliobosco
- * @version 1.0
+ * @version 1.0.1
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -61,7 +61,7 @@ public class Cabin extends Thread {
      * @throws CabinWeightException Cabin weight exception.
      */
     public void setWeight(double weight) throws CabinWeightException {
-        checkWeith(weight);
+        checkWeigth(weight);
         this.weight = weight;
     }
 
@@ -75,7 +75,7 @@ public class Cabin extends Thread {
      * @param weight Weight.
      * @throws CabinWeightException Cabin weight exception, not valid weight.
      */
-    public void checkWeith(double weight) throws CabinWeightException {
+    public void checkWeigth(double weight) throws CabinWeightException {
         if (!(weight > 0 && weight < MAX_WEIGHT)) {
             throw new CabinWeightException(this);
         }
