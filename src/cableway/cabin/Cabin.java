@@ -173,7 +173,7 @@ public class Cabin extends Thread {
      * @return Cabin ready to start.
      */
     public boolean isReady() {
-        return this.ready;
+        return this.ready && (this.getCable().getSpeed() == 0);
     }
 
     /**
@@ -288,7 +288,7 @@ public class Cabin extends Thread {
      * Open the left door of the cabin. Sets leftDoorOpen to true.
      */
     public void openLeftDoor() {
-        if (this.isReady()) {
+        if (!this.isReady()) {
             this.leftDoorOpen = true;
         }
     }
@@ -297,7 +297,7 @@ public class Cabin extends Thread {
      * Open the right door of the cabin. Sets rightDoorOpen to true.
      */
     public void openRightDoor() {
-        if (this.isReady()) {
+        if (!this.isReady()) {
             this.rightDoorOpen = true;
         }
     }
