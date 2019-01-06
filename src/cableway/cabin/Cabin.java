@@ -28,7 +28,7 @@ import cableway.cable.Cable;
 
 /**
  * @author giuliobosco
- * @version 1.0.1
+ * @version 1.0.2
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -49,6 +49,16 @@ public class Cabin extends Thread {
      * Cable to the cabin.
      */
     private Cable cable;
+
+    /**
+     * Status of the left door of the cabin.
+     */
+    private boolean leftDoorOpen;
+
+    /**
+     * Status of the right door of the cabin.
+     */
+    private boolean rightDoorOpen;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -79,6 +89,24 @@ public class Cabin extends Thread {
      */
     public Cable getCable() {
         return this.cable;
+    }
+
+    /**
+     * Get the Status of the left door of the cabin.
+     *
+     * @return Status of the left door of the cabin.
+     */
+    public boolean isLeftDoorOpen() {
+        return this.leftDoorOpen;
+    }
+
+    /**
+     * Get the status of the right door of the cabin.
+     *
+     * @return Status of the right door of the cabin.
+     */
+    public boolean isRightDoorOpen() {
+        return this.rightDoorOpen;
     }
 
     // -------------------------------------------------------------------------------- Constructors
@@ -125,6 +153,48 @@ public class Cabin extends Thread {
      */
     public void decrementWeight(double x) throws CabinWeightException {
         this.setWeight(this.getWeight() - x);
+    }
+
+    /**
+     * Check the doors.
+     * If the cabin is moving the door must be closed.
+     *
+     * @throws CabinDoorException Doors open while  moving.
+     */
+    public void checkDoors() throws CabinDoorException {
+        if (this.getCable().getSpeed() != 0) {
+            if (this.isLeftDoorOpen() || this.isRightDoorOpen()) {
+                throw new CabinDoorException(this);
+            }
+        }
+    }
+
+    /**
+     * Open the left door of the cabin. Sets leftDoorOpen to true.
+     */
+    public void openLeftDoor() {
+        this.leftDoorOpen = true;
+    }
+
+    /**
+     * Open the right door of the cabin. Sets rightDoorOpen to true.
+     */
+    public void openRightDoor() {
+        this.rightDoorOpen = true;
+    }
+
+    /**
+     * Close the left door of the cabin. Sets leftDoorOpen to false.
+     */
+    public void closeLeftDoor() {
+        this.leftDoorOpen = false;
+    }
+
+    /**
+     * Close the right door of the cabin. Sets rightDoorOpen to false.
+     */
+    public void closeRightDoor() {
+        this.rightDoorOpen = false;
     }
 
     // ----------------------------------------------------------------------------- General Methods
