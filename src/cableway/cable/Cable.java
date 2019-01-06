@@ -142,15 +142,15 @@ public class Cable {
     /**
      * Execute the check on the cable.
      *
-     * @throws CableException Cable speed or position errors.
+     * @throws CableSpeedException Cable speed or position errors.
      */
-    public void checkCable() throws CableException {
+    public void checkCable() throws CablePositionException, CableSpeedException {
         if (this.getPosition() > this.getLength() || this.getPosition() < 0) {
-            throw CableException.cablePositionException(this);
+            throw new CablePositionException(this);
         }
 
         if (this.getSpeed() > MAX_SPEED || this.getSpeed() < -MAX_SPEED) {
-            throw CableException.cableSpeedException(this);
+            throw new CableSpeedException(this);
         }
     }
 
