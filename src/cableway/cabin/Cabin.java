@@ -25,6 +25,8 @@
 package cableway.cabin;
 
 import cableway.cable.Cable;
+import cableway.cable.CablePositionException;
+import cableway.cable.CableSpeedException;
 
 /**
  * @author giuliobosco
