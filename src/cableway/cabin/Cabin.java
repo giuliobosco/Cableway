@@ -28,6 +28,10 @@ import cableway.cable.Cable;
 import cableway.cable.CablePositionException;
 import cableway.cable.CableSpeedException;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
 /**
  * @author giuliobosco
  * @version 1.0.3
@@ -61,6 +65,11 @@ public class Cabin extends Thread {
      * Status of the right door of the cabin.
      */
     private boolean rightDoorOpen;
+
+    /**
+     * Action listeners list.
+     */
+    private List<ActionListener> actionListeners;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -109,6 +118,44 @@ public class Cabin extends Thread {
      */
     public boolean isRightDoorOpen() {
         return this.rightDoorOpen;
+    }
+
+    /**
+     * Get the action listeners list.
+     *
+     * @return Action listeners list.
+     */
+    public List<ActionListener> getActionListeners() {
+        return this.actionListeners;
+    }
+
+    /**
+     * Add an action listener to the list of action listeners.
+     *
+     * @param actionListener Action listener to add to the list of action listeners.
+     */
+    public void addActionListener(ActionListener actionListener) {
+        this.getActionListeners().add(actionListener);
+    }
+
+    /**
+     * Remove an action listener from the list of action listeners.
+     *
+     * @param actionListener Action listener to remove from the list of action listeners.
+     */
+    public void removeActionListener(ActionListener actionListener) {
+        this.getActionListeners().remove(actionListener);
+    }
+
+    /**
+     * Perform action to all action listeners.
+     *
+     * @param e Action event to perform.
+     */
+    public void actionPerformer(ActionEvent e) {
+        for (ActionListener actionListener : this.getActionListeners()) {
+            actionListener.actionPerformed(e);
+        }
     }
 
     // -------------------------------------------------------------------------------- Constructors
@@ -212,10 +259,10 @@ public class Cabin extends Thread {
     /**
      * Check the cabin.
      *
-     * @throws CabinWeightException Cabin weight exception, not valid weight.
-     * @throws CabinDoorException Cabin door exception, doors open while moving.
+     * @throws CabinWeightException   Cabin weight exception, not valid weight.
+     * @throws CabinDoorException     Cabin door exception, doors open while moving.
      * @throws CablePositionException Cable position exception, the cable has a wrong position.
-     * @throws CableSpeedException Cable speed exception, the speed is out of the bounds.
+     * @throws CableSpeedException    Cable speed exception, the speed is out of the bounds.
      */
     private void checkCabin() throws CabinWeightException, CabinDoorException, CablePositionException, CableSpeedException {
         this.checkWeigth();
