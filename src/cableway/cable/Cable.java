@@ -82,10 +82,9 @@ public class Cable {
      *
      * @param length Length of the cable.
      */
-    private void setLength(double length) {
-        if (length > 0) {
-            this.lenght = length;
-        }
+    private void setLength(double length) throws CableLengthException {
+        this.checkLength(length);
+        this.lenght = length;
     }
 
     /**
@@ -104,10 +103,9 @@ public class Cable {
      *
      * @param position Position of the cable.
      */
-    public void setPosition(double position) {
-        if (position >= 0 && position <= this.lenght) {
-            this.position = position;
-        }
+    public void setPosition(double position) throws CablePositionException {
+        this.checkPosition(position);
+        this.position = position;
     }
 
     /**
@@ -126,10 +124,9 @@ public class Cable {
      *
      * @param speed Speed of the cable.
      */
-    public void setSpeed(double speed) {
-        if (speed >= -MAX_SPEED && speed <= MAX_SPEED) {
-            this.speed = speed;
-        }
+    public void setSpeed(double speed) throws CableSpeedException {
+        this.checkSpeed(speed);
+        this.speed = speed;
     }
 
     /**
@@ -267,8 +264,8 @@ public class Cable {
      *
      * @param x Value to increment.
      */
-    public void incrementPosition(double x) {
-        this.position += x;
+    public void incrementPosition(double x) throws CablePositionException {
+        this.setPosition(this.getPosition() + x);
     }
 
     /**
@@ -276,14 +273,14 @@ public class Cable {
      *
      * @param x Value to decrement.
      */
-    public void decrementPosition(double x) {
-        this.position -= x;
+    public void decrementPosition(double x) throws CablePositionException {
+        this.setPosition(this.getPosition() - x);
     }
 
     /**
      * Increment the speed of the cable.
      */
-    public void incrementSpeed() {
+    public void incrementSpeed() throws CableSpeedException {
         if (this.getSpeed() == 0) {
             this.speed++;
         }
@@ -298,7 +295,7 @@ public class Cable {
     /**
      * Decrement the speed of the cable.
      */
-    public void decrementSpeed() {
+    public void decrementSpeed() throws CableSpeedException {
         if (this.getSpeed() == 0) {
             this.speed--;
         }
