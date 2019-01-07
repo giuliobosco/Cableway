@@ -26,10 +26,12 @@ package cableway.cabin;
 
 import cableway.CablewayException;
 import cableway.cable.Cable;
+import cableway.people.Person;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.ExceptionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,6 +60,11 @@ public class Cabin extends Thread {
      * Time between cabin checks, 200 milliseconds.
      */
     public final static long CABIN_CHECK = 200;
+
+    /**
+     * Max people in the cabin.
+     */
+    public final static int MAX_PEOPLE = 85;
 
     // ---------------------------------------------------------------------------------- Attributes
 
@@ -95,6 +102,11 @@ public class Cabin extends Thread {
      * Exception listeners list.
      */
     private List<ExceptionListener> exceptionListeners;
+
+    /**
+     * People in the cabin.
+     */
+    private List<Person> people;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -244,6 +256,67 @@ public class Cabin extends Thread {
         for (ExceptionListener exceptionListener : this.getExceptionListeners()) {
             exceptionListener.exceptionThrown(e);
         }
+    }
+
+    /**
+     * Set the people in the cabin.
+     *
+     * @param people People in the cabin.
+     * @throws CablewayException Cableway exception, error with the weight of the cabin or too many
+     * people in the cabin.
+     */
+    public void setPeople(List<Person> people) throws CablewayException {
+        if (people.size() <= MAX_PEOPLE) {
+            this.people = new ArrayList<>();
+
+            for (Person person : people) {
+                this.addPerson(person);
+            }
+        } else {
+            String message = CablewayException.DANGER_TEXT + "\nToo many people in the cabin.";
+            throw new CablewayException(message, CablewayException.DANGER);
+        }
+    }
+
+    /**
+     * Add person to the cabin.
+     *
+     * @param person Person to add.
+     * @throws CablewayException Cableway exception, problem with the weight or too many people in
+     * the cabin.
+     */
+    public void addPerson(Person person) throws CablewayException {
+        if (this.people.size() < MAX_PEOPLE) {
+            this.incrementWeight(person.getWeight());
+            this.people.add(person);
+        } else {
+            String message = CablewayException.DANGER_TEXT + "\nToo many people in the cabin.";
+            throw new CablewayException(message, CablewayException.DANGER);
+        }
+    }
+
+    /**
+     * Remove person from the cabin.
+     *
+     * @param person Person to remove.
+     * @throws CabinWeightException Cabin weight exception, problem with the weight of the cabin.
+     */
+    public void removePerson(Person person) throws CabinWeightException {
+        this.decrementWeight(person.getWeight());
+        this.people.remove(person);
+    }
+
+    /**
+     * Empty the people in the cabin.
+     *
+     * @throws CabinWeightException Cabin weight exception, problem with the weight of the cabin.
+     */
+    public void emptyPeople() throws CabinWeightException {
+        for (Person person : this.people) {
+            this.decrementWeight(person.getWeight());
+        }
+
+        this.people = new ArrayList<>();
     }
 
     // -------------------------------------------------------------------------------- Constructors
