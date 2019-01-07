@@ -25,6 +25,7 @@
 package cableway.cable;
 
 import cableway.CablewayException;
+import cableway.cabin.Cabin;
 
 /**
  * Cableway cable, keep the length, the position and the speed of the cableway cable.
@@ -62,6 +63,16 @@ public class Cable {
      * Speed of the cable.
      */
     private double speed;
+
+    /**
+     * Cabin 0, connected to one end of the cable, opposite of cabin 1.
+     */
+    private Cabin cabin0;
+
+    /**
+     * Cabin 1, connected to on end of the cable, opposite of cabin 0.
+     */
+    private Cabin cabin1;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -137,14 +148,42 @@ public class Cable {
      * Sets position to 0 and speed too.
      *
      * @param length Length of the cable.
+     * @throws CablewayException Cableway exception,
      */
-    public Cable(double length) {
-        this.setLength(length);
-        this.setPosition(0);
-        this.setSpeed(0);
+    public Cable(double length, Cabin cabin0, Cabin cabin1) throws CablewayException {
+        if (cabin0 != cabin1) {
+            this.setLength(length);
+            this.cabin0 = cabin0;
+            this.cabin1 = cabin1;
+            this.setPosition(0);
+            this.setSpeed(0);
+        } else {
+            String message = CablewayException.FATAL_TEXT + "Cabins cant't be the same.";
+            throw new CablewayException(message, CablewayException.FATAL);
+        }
     }
 
     // -------------------------------------------------------------------------------- Help Methods
+
+    /**
+     * Check the position of the cable with the cabins, the cable have to be at position 0 or length
+     * if one of the cabin is not ready.
+     *
+     * @throws CablewayException Cableway exception, cabins can't move.
+     */
+    private void checkCabinPosition() throws CablewayException {
+        if (this.getPosition() != 0 && this.getPosition() != this.getLength()) {
+            String message = CablewayException.FATAL + "\nCabin 0: can't move, is not ready";
+
+            if (!this.cabin0.isReady()) {
+                throw new CablewayException(message, CablewayException.FATAL);
+            }
+
+            if (!this.cabin1.isReady()) {
+                throw new CablewayException(message, CablewayException.FATAL);
+            }
+        }
+    }
 
     /**
      * Check the length of the cable.
