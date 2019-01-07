@@ -145,6 +145,28 @@ public class Cable {
     // -------------------------------------------------------------------------------- Help Methods
 
     /**
+     * Check the length of the cable.
+     *
+     * @param length Length of the cable.
+     * @throws CableLengthException Cable length exception, not valid length.
+     */
+    private void checkLength(double length) throws CableLengthException {
+        if (length <= 0) {
+            String message = CablewayException.FATAL_TEXT + "\nThe cable must longer than 0";
+            throw new CableLengthException(message);
+        }
+    }
+
+    /**
+     * Check the length attribute of the cable.
+     *
+     * @throws CableLengthException Cable length exception, not valid length.
+     */
+    private void checkLength() throws CableLengthException {
+        this.checkLength(this.getLength());
+    }
+
+    /**
      * Execute the check on the cable.
      *
      * @throws CableSpeedException Cable speed or position errors.
