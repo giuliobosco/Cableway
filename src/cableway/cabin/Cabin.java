@@ -353,7 +353,7 @@ public class Cabin extends Thread {
      *
      * @throws CablewayException Cableway exception, the cableway got some error.
      */
-    private void checkCabin() throws CablewayException {
+    public void checkCabin() throws CablewayException {
         this.checkWeigth();
         this.checkDoors();
         this.getCable().checkCable();
