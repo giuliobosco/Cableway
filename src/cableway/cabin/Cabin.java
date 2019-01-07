@@ -50,16 +50,6 @@ public class Cabin extends Thread {
     public final static String MOVED = "MOVED";
 
     /**
-     * Interrupted exception command.
-     */
-    public final static String INTERRUPTED_EXCEPTION = "IE";
-
-    /**
-     * Cableway exception command.
-     */
-    public final static String CABLEWAY_EXCEPTION = "CB";
-
-    /**
      * Max weight in the cabin.
      */
     public final static double MAX_WEIGHT = 7000;
