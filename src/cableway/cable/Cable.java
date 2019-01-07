@@ -24,6 +24,8 @@
 
 package cableway.cable;
 
+import cableway.CablewayException;
+
 /**
  * Cableway cable, keep the length, the position and the speed of the cableway cable.
  *
