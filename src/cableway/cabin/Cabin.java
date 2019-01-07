@@ -31,11 +31,12 @@ import cableway.cable.CableSpeedException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.ExceptionListener;
 import java.util.List;
 
 /**
  * @author giuliobosco
- * @version 1.0.7
+ * @version 1.0.8
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -101,6 +102,11 @@ public class Cabin extends Thread {
      * Action listeners list.
      */
     private List<ActionListener> actionListeners;
+
+    /**
+     * Exception listeners list.
+     */
+    private List<ExceptionListener> exceptionListeners;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -211,6 +217,44 @@ public class Cabin extends Thread {
     public void actionPerformer(ActionEvent e) {
         for (ActionListener actionListener : this.getActionListeners()) {
             actionListener.actionPerformed(e);
+        }
+    }
+
+    /**
+     * Get the exception listeners list.
+     *
+     * @return Exception listeners list.
+     */
+    public List<ExceptionListener> getExceptionListeners() {
+        return this.exceptionListeners;
+    }
+
+    /**
+     * Add an exception listener to the list of exception listeners.
+     *
+     * @param exceptionListener Exception listener to add.
+     */
+    public void addExceptionListener(ExceptionListener exceptionListener) {
+        this.getExceptionListeners().add(exceptionListener);
+    }
+
+    /**
+     * Remove an exception listener from the list of exception listeners.
+     *
+     * @param exceptionListener Exception listener to remove.
+     */
+    public void removeExceptionListener(ExceptionListener exceptionListener) {
+        this.getExceptionListeners().remove(exceptionListener);
+    }
+
+    /**
+     * Throw exception to all exception listeners.
+     *
+     * @param e Exception to throw.
+     */
+    public void exceptionThrower(Exception e) {
+        for (ExceptionListener exceptionListener : this.getExceptionListeners()) {
+            exceptionListener.exceptionThrown(e);
         }
     }
 
@@ -333,7 +377,7 @@ public class Cabin extends Thread {
      * Start the cabin.
      *
      * @throws InterruptedException Interrupt the thread.
-     * @throws CablewayException Cableway exception, cabin or cable exception.
+     * @throws CablewayException    Cableway exception, cabin or cable exception.
      */
     public void startCabin() throws InterruptedException, CablewayException {
         this.closeLeftDoor();
@@ -348,7 +392,7 @@ public class Cabin extends Thread {
      * Stop the cabin.
      *
      * @throws InterruptedException Interrupt the thread.
-     * @throws CablewayException Cableway exception, cabin or cable exception.
+     * @throws CablewayException    Cableway exception, cabin or cable exception.
      */
     public void stopCabin() throws InterruptedException, CablewayException {
         this.setReady(false);
@@ -382,9 +426,9 @@ public class Cabin extends Thread {
                 }
             }
         } catch (InterruptedException ie) {
-            this.actionPerformer(new CabinActionEvent(this, ie));
+            this.exceptionThrower(ie);
         } catch (CablewayException cb) {
-            this.actionPerformer(new CabinActionEvent(this, cb));
+            this.exceptionThrower(cb);
         }
     }
 
