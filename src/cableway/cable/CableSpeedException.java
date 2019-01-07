@@ -30,9 +30,9 @@ import cableway.CablewayException;
  * Cable speed exception.
  *
  * @author giuliobosco
- * @version 1.1
+ * @version 1.0.2
  */
-public class CableSpeedException extends CablewayException {
+public class CableSpeedException extends CableException {
 
     /**
      * Create cable speed exception with exception message.

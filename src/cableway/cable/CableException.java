@@ -27,19 +27,38 @@ package cableway.cable;
 import cableway.CablewayException;
 
 /**
- * Cable Length Exception.
+ * Cable exception, errors or problems with cable handled with this exception.
  *
  * @author giuliobosco
- * @version 1.0.2
+ * @version 1.0
  */
-public class CableLengthException extends CableException {
+public class CableException extends CablewayException {
+    // ------------------------------------------------------------------------------------ Costants
+    // ---------------------------------------------------------------------------------- Attributes
+    // --------------------------------------------------------------------------- Getters & Setters
+    // -------------------------------------------------------------------------------- Constructors
 
     /**
-     * Create cable length exception with exception message.
+     * Create cable exception with exception message.
      *
      * @param message Exception message.
      */
-    public CableLengthException(String message) {
+    public CableException(String message) {
         super(message);
     }
+
+    /**
+     * Create cable exception with exception message and exception status.
+     *
+     * @param message Exception message.
+     * @param status Exception status.
+     */
+    public CableException(String message, int status) {
+        super(message, status);
+    }
+
+    // -------------------------------------------------------------------------------- Help Methods
+    // ----------------------------------------------------------------------------- General Methods
+    // --------------------------------------------------------------------------- Static Components
+
 }

@@ -30,9 +30,9 @@ import cableway.CablewayException;
  * Cable Position Exception.
  *
  * @author giuliobosco
- * @version 1.1
+ * @version 1.0.2
  */
-public class CablePositionException extends CablewayException {
+public class CablePositionException extends CableException {
 
     /**
      * Create cable position exception with exception message.
