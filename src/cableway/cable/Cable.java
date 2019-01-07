@@ -189,6 +189,28 @@ public class Cable {
     }
 
     /**
+     * Check the speed of the cable.
+     * Must be bigger than minus max speed and smaller than max speed.
+     *
+     * @param speed Cabin speed.
+     * @throws CableSpeedException Cabin speed exception, not valid speed.
+     */
+    private void checkSpeed(double speed) throws CableSpeedException {
+        if (speed > MAX_SPEED || speed < -MAX_SPEED) {
+            throw new CableSpeedException(this);
+        }
+    }
+
+    /**
+     * Check the speed of the cable.
+     *
+     * @throws CableSpeedException Cabin speed exception, not valid speed.
+     */
+    private void checkSpeed() throws CableSpeedException {
+        this.checkSpeed(this.getSpeed());
+    }
+
+    /**
      * Execute the check on the cable.
      *
      * @throws CableSpeedException Cable speed or position errors.
