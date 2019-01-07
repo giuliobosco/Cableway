@@ -24,6 +24,8 @@
 
 package cableway.people;
 
+import help.Random;
+
 import java.util.Date;
 
 /**
@@ -136,5 +138,14 @@ public class Person {
     // -------------------------------------------------------------------------------- Help Methods
     // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
+
+    /**
+     * Get an random person, no first and last name, no date, only random weight.
+     *
+     * @return Random person.
+     */
+    public static Person getRandomPerson() {
+        return new Person("", "", Random.getDouble(MIN_WEIGHT, MAX_WEIGHT), new Date());
+    }
 
 }
