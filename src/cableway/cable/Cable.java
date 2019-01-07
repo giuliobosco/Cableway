@@ -167,6 +167,28 @@ public class Cable {
     }
 
     /**
+     * Check the position of the cable.
+     * Must be bigger or equal to 0 and smaller or equal to the length of the cable.
+     *
+     * @param position Position of the cable.
+     * @throws CablePositionException Cable position exception, not valid position.
+     */
+    private void checkPosition(double position) throws CablePositionException {
+        if (position < 0 || position > this.getLength()) {
+            throw new CablePositionException(this);
+        }
+    }
+
+    /**
+     * Check the position of the cable.
+     *
+     * @throws CablePositionException Cable position exception, not valid position.
+     */
+    private void checkPosition() throws CablePositionException {
+        this.checkPosition(this.getPosition());
+    }
+
+    /**
      * Execute the check on the cable.
      *
      * @throws CableSpeedException Cable speed or position errors.
