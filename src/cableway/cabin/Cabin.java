@@ -26,8 +26,6 @@ package cableway.cabin;
 
 import cableway.CablewayException;
 import cableway.cable.Cable;
-import cableway.cable.CablePositionException;
-import cableway.cable.CableSpeedException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,7 +34,7 @@ import java.util.List;
 
 /**
  * @author giuliobosco
- * @version 1.0.8
+ * @version 1.0.9
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -411,8 +409,8 @@ public class Cabin extends Thread {
         double position = this.cable.getPosition();
 
         boolean flag = true;
-        try {
-            while (flag) {
+        while (flag) {
+            try {
                 if (!(position == this.cable.getPosition())) {
                     this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, MOVED));
                     position = this.cable.getPosition();
@@ -424,11 +422,9 @@ public class Cabin extends Thread {
                 if (this.isInterrupted()) {
                     flag = false;
                 }
+            } catch (InterruptedException | CablewayException e) {
+                this.exceptionThrower(e);
             }
-        } catch (InterruptedException ie) {
-            this.exceptionThrower(ie);
-        } catch (CablewayException cb) {
-            this.exceptionThrower(cb);
         }
     }
 
