@@ -319,12 +319,9 @@ public class Cabin extends Thread {
     /**
      * Check the cabin.
      *
-     * @throws CabinWeightException   Cabin weight exception, not valid weight.
-     * @throws CabinDoorException     Cabin door exception, doors open while moving.
-     * @throws CablePositionException Cable position exception, the cable has a wrong position.
-     * @throws CableSpeedException    Cable speed exception, the speed is out of the bounds.
+     * @throws CablewayException Cableway exception, the cableway got some error.
      */
-    private void checkCabin() throws CabinWeightException, CabinDoorException, CablePositionException, CableSpeedException {
+    private void checkCabin() throws CablewayException {
         this.checkWeigth();
         this.checkDoors();
         this.getCable().checkCable();
