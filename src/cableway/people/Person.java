@@ -69,6 +69,11 @@ public class Person {
      */
     private Date bornDate;
 
+    /**
+     * Blueline, fast entrance to cableway.
+     */
+    private boolean blueline;
+
     // --------------------------------------------------------------------------- Getters & Setters
 
     /**
@@ -118,6 +123,24 @@ public class Person {
         return this.bornDate;
     }
 
+    /**
+     * Get the blueline.
+     *
+     * @return Blueline.
+     */
+    public boolean isBlueline() {
+        return this.blueline;
+    }
+
+    /**
+     * Set the blueline.
+     *
+     * @param blueline Blueline.
+     */
+    public void setBlueline(boolean blueline) {
+        this.blueline = blueline;
+    }
+
     // -------------------------------------------------------------------------------- Constructors
 
     /**
@@ -133,6 +156,7 @@ public class Person {
         this.lastName = lastName;
         this.weight = weight;
         this.bornDate = bornDate;
+        this.blueline = false;
     }
 
     // -------------------------------------------------------------------------------- Help Methods
