@@ -26,6 +26,7 @@ package cableway.cable;
 
 import cableway.CablewayException;
 import cableway.cabin.Cabin;
+import cableway.cabin.CabinException;
 
 /**
  * Cableway cable, keep the length, the position and the speed of the cableway cable.
@@ -124,7 +125,7 @@ public class Cable {
      *
      * @param speed Speed of the cable.
      */
-    public void setSpeed(double speed) throws CableSpeedException {
+    public void setSpeed(double speed) throws CablewayException {
         this.checkSpeed(speed);
         this.speed = speed;
     }
@@ -170,13 +171,14 @@ public class Cable {
      */
     private void checkCabinPosition() throws CablewayException {
         if (this.getPosition() != 0 && this.getPosition() != this.getLength()) {
-            String message = CablewayException.FATAL + "\nCabin 0: can't move, is not ready";
 
             if (!this.cabin0.isReady()) {
+                String message = CablewayException.FATAL + "\nCabin 0: can't move, is not ready";
                 throw new CablewayException(message, CablewayException.FATAL);
             }
 
             if (!this.cabin1.isReady()) {
+                String message = CablewayException.FATAL + "\nCabin 1: can't move, is not ready";
                 throw new CablewayException(message, CablewayException.FATAL);
             }
         }
@@ -228,14 +230,27 @@ public class Cable {
 
     /**
      * Check the speed of the cable.
-     * Must be bigger than minus max speed and smaller than max speed.
+     * Must be bigger than minus max speed, smaller than max speed and checks also that the cabins
+     * are ready.
      *
      * @param speed Cabin speed.
      * @throws CableSpeedException Cabin speed exception, not valid speed.
      */
-    private void checkSpeed(double speed) throws CableSpeedException {
+    private void checkSpeed(double speed) throws CablewayException {
         if (speed > MAX_SPEED || speed < -MAX_SPEED) {
             throw new CableSpeedException(this);
+        }
+
+        if (speed != 0) {
+            if (!this.cabin0.isReady()) {
+                String message = CablewayException.DANGER_TEXT + "\nCabin 0 is not ready.";
+                throw new CabinException(message, CablewayException.DANGER);
+            }
+
+            if (!this.cabin1.isReady()) {
+                String message = CablewayException.DANGER_TEXT + "\nCabin 1 is not ready.";
+                throw  new CabinException(message, CablewayException.DANGER);
+            }
         }
     }
 
@@ -244,7 +259,7 @@ public class Cable {
      *
      * @throws CableSpeedException Cabin speed exception, not valid speed.
      */
-    private void checkSpeed() throws CableSpeedException {
+    private void checkSpeed() throws CablewayException {
         this.checkSpeed(this.getSpeed());
     }
 
@@ -280,7 +295,7 @@ public class Cable {
     /**
      * Increment the speed of the cable.
      */
-    public void incrementSpeed() throws CableSpeedException {
+    public void incrementSpeed() throws CablewayException {
         if (this.getSpeed() == 0) {
             this.speed++;
         }
@@ -295,7 +310,7 @@ public class Cable {
     /**
      * Decrement the speed of the cable.
      */
-    public void decrementSpeed() throws CableSpeedException {
+    public void decrementSpeed() throws CablewayException {
         if (this.getSpeed() == 0) {
             this.speed--;
         }
