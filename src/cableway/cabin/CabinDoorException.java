@@ -25,15 +25,14 @@
 package cableway.cabin;
 
 import cableway.CablewayException;
-import cableway.cable.Cable;
 
 /**
  * Cabin door exception.
  *
  * @author giuliobosco
- * @version 1.0
+ * @version 1.0.1
  */
-public class CabinDoorException extends CablewayException {
+public class CabinDoorException extends CabinException {
 
     /**
      * Create cabin door exception with exception message.

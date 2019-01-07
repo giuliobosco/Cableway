@@ -30,9 +30,9 @@ import cableway.CablewayException;
  * Cabin weight exception.
  *
  * @author giuliobosco
- * @version 1.0
+ * @version 1.0.1
  */
-public class CabinWeightException extends CablewayException {
+public class CabinWeightException extends CabinException {
 
     /**
      * Create cabin weight exception generating message with the exception generator.
