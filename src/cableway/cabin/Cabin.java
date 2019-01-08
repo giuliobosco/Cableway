@@ -26,6 +26,8 @@ package cableway.cabin;
 
 import cableway.CablewayException;
 import cableway.cable.Cable;
+import cableway.people.FullSetException;
+import cableway.people.PeopleSet;
 import cableway.people.Person;
 
 import java.awt.event.ActionEvent;
@@ -106,7 +108,7 @@ public class Cabin extends Thread {
     /**
      * People in the cabin.
      */
-    private List<Person> people;
+    private PeopleSet people;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -263,19 +265,19 @@ public class Cabin extends Thread {
      *
      * @param people People in the cabin.
      * @throws CablewayException Cableway exception, error with the weight of the cabin or too many
-     * people in the cabin.
+     *                           people in the cabin.
      */
-    public void setPeople(List<Person> people) throws CablewayException {
-        if (people.size() <= MAX_PEOPLE) {
-            this.people = new ArrayList<>();
+    public void setPeople(PeopleSet people) throws CablewayException {
+        this.people = people;
+    }
 
-            for (Person person : people) {
-                this.addPerson(person);
-            }
-        } else {
-            String message = CablewayException.DANGER_TEXT + "\nToo many people in the cabin.";
-            throw new CablewayException(message, CablewayException.DANGER);
-        }
+    /**
+     * Get the people in the cabin.
+     *
+     * @return People in the cabin.
+     */
+    public PeopleSet getPeople() {
+        return this.people;
     }
 
     /**
@@ -283,16 +285,11 @@ public class Cabin extends Thread {
      *
      * @param person Person to add.
      * @throws CablewayException Cableway exception, problem with the weight or too many people in
-     * the cabin.
+     *                           the cabin.
      */
     public void addPerson(Person person) throws CablewayException {
-        if (this.people.size() < MAX_PEOPLE) {
-            this.incrementWeight(person.getWeight());
-            this.people.add(person);
-        } else {
-            String message = CablewayException.DANGER_TEXT + "\nToo many people in the cabin.";
-            throw new CablewayException(message, CablewayException.DANGER);
-        }
+        this.incrementWeight(person.getWeight());
+        this.getPeople().addPerson(person);
     }
 
     /**
@@ -303,7 +300,7 @@ public class Cabin extends Thread {
      */
     public void removePerson(Person person) throws CabinWeightException {
         this.decrementWeight(person.getWeight());
-        this.people.remove(person);
+        this.getPeople().removePerson(person);
     }
 
     /**
@@ -312,11 +309,9 @@ public class Cabin extends Thread {
      * @throws CabinWeightException Cabin weight exception, problem with the weight of the cabin.
      */
     public void emptyPeople() throws CabinWeightException {
-        for (Person person : this.people) {
-            this.decrementWeight(person.getWeight());
-        }
+        this.decrementWeight(this.getPeople().getTotalWeight());
 
-        this.people = new ArrayList<>();
+        this.getPeople().clear();
     }
 
     // -------------------------------------------------------------------------------- Constructors
@@ -326,8 +321,9 @@ public class Cabin extends Thread {
      *
      * @param cable Cable of the cabin.
      */
-    public Cabin(Cable cable) {
+    public Cabin(Cable cable) throws FullSetException {
         this.cable = cable;
+        this.people = new PeopleSet(MAX_PEOPLE);
     }
 
     // -------------------------------------------------------------------------------- Help Methods
