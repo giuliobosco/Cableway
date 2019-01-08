@@ -31,7 +31,7 @@ import java.util.List;
  * People set.
  *
  * @author giuliobosco
- * @version 1.0
+ * @version 1.0.2
  */
 public class PeopleSet {
     // ------------------------------------------------------------------------------------ Costants
@@ -117,6 +117,22 @@ public class PeopleSet {
     }
 
     // ----------------------------------------------------------------------------- General Methods
+
+    /**
+     * Get the sum of the weight of all people in the people set.
+     *
+     * @return Sum of the weight of all people in the people set.
+     */
+    public double getTotalWeight() {
+        double weight = 0;
+
+        for (Person person : this.people) {
+            weight += person.getWeight();
+        }
+
+        return weight;
+    }
+
     // --------------------------------------------------------------------------- Static Components
     
 }
