@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * @author giuliobosco
- * @version 1.1
+ * @version 1.1.1
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -85,14 +85,14 @@ public class Cabin extends Thread {
     private Cable cable;
 
     /**
-     * Status of the left door of the cabin.
+     * Status of the internal door of the cabin.
      */
-    private boolean leftDoorOpen;
+    private boolean internalDoorOpen;
 
     /**
-     * Status of the right door of the cabin.
+     * Status of the external door of the cabin.
      */
-    private boolean rightDoorOpen;
+    private boolean externalDoorOpen;
 
     /**
      * Cabin ready to start.
@@ -146,12 +146,12 @@ public class Cabin extends Thread {
     }
 
     /**
-     * Get the Status of the left door of the cabin.
+     * Get the Status of the internal door of the cabin.
      *
-     * @return Status of the left door of the cabin.
+     * @return Status of the internal door of the cabin.
      */
-    public boolean isLeftDoorOpen() {
-        return this.leftDoorOpen;
+    public boolean isInternalDoorOpen() {
+        return this.internalDoorOpen;
     }
 
     /**
@@ -159,8 +159,8 @@ public class Cabin extends Thread {
      *
      * @return Status of the right door of the cabin.
      */
-    public boolean isRightDoorOpen() {
-        return this.rightDoorOpen;
+    public boolean isExternalDoorOpen() {
+        return this.externalDoorOpen;
     }
 
     /**
@@ -384,42 +384,42 @@ public class Cabin extends Thread {
      */
     public void checkDoors() throws CabinDoorException {
         if (this.getCable().getSpeed() != 0) {
-            if (this.isLeftDoorOpen() || this.isRightDoorOpen()) {
+            if (this.isInternalDoorOpen() || this.isExternalDoorOpen()) {
                 throw new CabinDoorException(this);
             }
         }
     }
 
     /**
-     * Open the left door of the cabin. Sets leftDoorOpen to true.
+     * Open the internal door of the cabin. Sets internalDoorOpen to true.
      */
-    public void openLeftDoor() {
+    public void openInternalDoor() {
         if (!this.isReady()) {
-            this.leftDoorOpen = true;
+            this.internalDoorOpen = true;
         }
     }
 
     /**
-     * Open the right door of the cabin. Sets rightDoorOpen to true.
+     * Open the right door of the cabin. Sets externalDoorOpen to true.
      */
-    public void openRightDoor() {
+    public void openExternallDoor() {
         if (!this.isReady()) {
-            this.rightDoorOpen = true;
+            this.externalDoorOpen = true;
         }
     }
 
     /**
-     * Close the left door of the cabin. Sets leftDoorOpen to false.
+     * Close the left door of the cabin. Sets internalDoorOpen to false.
      */
-    public void closeLeftDoor() {
-        this.leftDoorOpen = false;
+    public void closeInternalDoor() {
+        this.internalDoorOpen = false;
     }
 
     /**
-     * Close the right door of the cabin. Sets rightDoorOpen to false.
+     * Close the right door of the cabin. Sets externalDoorOpen to false.
      */
-    public void closeRightDoor() {
-        this.rightDoorOpen = false;
+    public void closeExternalDoor() {
+        this.externalDoorOpen = false;
     }
 
     /**
@@ -442,9 +442,9 @@ public class Cabin extends Thread {
      * @throws CablewayException    Cableway exception, cabin or cable exception.
      */
     public void startCabin() throws InterruptedException, CablewayException {
-        this.closeLeftDoor();
+        this.closeExternalDoor();
         Thread.sleep(50);
-        this.closeRightDoor();
+        this.closeInternalDoor();
         Thread.sleep(50);
 
         this.setReady(true);
@@ -459,9 +459,9 @@ public class Cabin extends Thread {
     public void stopCabin() throws InterruptedException, CablewayException {
         this.setReady(false);
 
-        this.openLeftDoor();
+        this.openExternallDoor();
         Thread.sleep(50);
-        this.openRightDoor();
+        this.openInternalDoor();
         Thread.sleep(50);
     }
 
