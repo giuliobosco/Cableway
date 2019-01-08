@@ -68,6 +68,8 @@ public class Platoform {
     public Platoform(Cabin cabin, double cablePosition) {
         this.cabin = cabin;
         this.cablePosition = cablePosition;
+        this.leftDoor = false;
+        this.rightDoor = false;
     }
 
     // -------------------------------------------------------------------------------- Help Methods
