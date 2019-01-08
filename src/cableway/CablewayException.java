@@ -140,7 +140,7 @@ public class CablewayException extends Exception {
      * @param exceptionStatus Exception status.
      */
     public CablewayException(String message, int exceptionStatus) {
-        this(message);
+        this(codeToString(exceptionStatus) + "\n" + message);
         this.setExceptionStatus(exceptionStatus);
     }
 
