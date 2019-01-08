@@ -33,7 +33,7 @@ import cableway.people.PeopleSet;
  * Cableway station class.
  *
  * @author giuliobosco
- * @version 1.0
+ * @version 1.0.2
  */
 public class Station extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -71,34 +71,14 @@ public class Station extends Thread {
     private Cable cable;
 
     /**
-     * Station left door for the cabin 0.
+     * Platform for cabin 0.
      */
-    private boolean cabin0LeftDoor;
+    private Platoform platoform0;
 
     /**
-     * Station right door for the cabin 0.
+     * Platform for cabin 1.
      */
-    private boolean cabin0RightDoor;
-
-    /**
-     * Station left door for the cabin 1.
-     */
-    private boolean cabin1LeftDoor;
-
-    /**
-     * Station right door for the cabin 1.
-     */
-    private boolean cabin1RightDoor;
-
-    /**
-     * Station cabin 0 ready to move.
-     */
-    private boolean cabin0ready;
-
-    /**
-     * Station cabin 1 ready to move.
-     */
-    private boolean cabin1ready;
+    private Platoform platoform1;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
