@@ -318,5 +318,15 @@ public class Cable {
     }
 
     // ----------------------------------------------------------------------------- General Methods
+
+    /**
+     * Is the cable in a platform.
+     *
+     * @return True if the cable is in a platform, other ways false.
+     */
+    public boolean isArrived() {
+        return this.getPosition() == 0 || this.getPosition() == this.getLength();
+    }
+
     // --------------------------------------------------------------------------- Static Components
 }
