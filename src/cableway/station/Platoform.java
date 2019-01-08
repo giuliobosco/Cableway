@@ -24,6 +24,8 @@
 
 package cableway.station;
 
+import cableway.cabin.Cabin;
+
 /**
  * Cableway station platform.
  *
@@ -50,13 +52,24 @@ public class Platoform {
     private boolean cabinRightDoor;
 
     /**
-     * Station cabin ready to move.
+     * Platform cabin.
      */
-    private boolean cabinready;
+    private Cabin cabin;
 
 
     // --------------------------------------------------------------------------- Getters & Setters
     // -------------------------------------------------------------------------------- Constructors
+
+    /**
+     * Create the platform with the platform cabin.
+     *
+     * @param cabin Platform cabin.
+     */
+    public Platoform(Cabin cabin, double cablePosition) {
+        this.cabin = cabin;
+        this.cablePosition = cablePosition;
+    }
+
     // -------------------------------------------------------------------------------- Help Methods
     // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
