@@ -35,9 +35,14 @@ public class Platoform {
     // ---------------------------------------------------------------------------------- Attributes
 
     /**
-     * Station left door for the cabin.
+     * Platform left door for the cabin.
      */
-    private boolean cabinLeftDoor;
+    private boolean leftDoor;
+
+    /**
+     * Platform right door for the cabin 0.
+     */
+    private boolean rightDoor;
 
     /**
      * Station right door for the cabin 0.
