@@ -24,6 +24,7 @@
 
 package cableway.people;
 
+import cableway.people.skypass.Skipass;
 import help.Random;
 
 import java.util.Date;
@@ -70,9 +71,9 @@ public class Person {
     private Date bornDate;
 
     /**
-     * Blueline, fast entrance to cableway.
+     * Cableway person skipass.
      */
-    private boolean blueline;
+    private Skipass skipass;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -124,21 +125,21 @@ public class Person {
     }
 
     /**
-     * Get the blueline.
+     * Set the cableway person skipass.
      *
-     * @return Blueline.
+     * @param skipass Cableway person skipass.
      */
-    public boolean isBlueline() {
-        return this.blueline;
+    public void setSkipass(Skipass skipass) {
+        this.skipass = skipass;
     }
 
     /**
-     * Set the blueline.
+     * Get the cableway person skipass.
      *
-     * @param blueline Blueline.
+     * @return Cableway person skipass.
      */
-    public void setBlueline(boolean blueline) {
-        this.blueline = blueline;
+    public Skipass getSkipass() {
+        return this.skipass;
     }
 
     // -------------------------------------------------------------------------------- Constructors
@@ -156,7 +157,20 @@ public class Person {
         this.lastName = lastName;
         this.weight = weight;
         this.bornDate = bornDate;
-        this.blueline = false;
+    }
+
+    /**
+     * Create the person with first and last name, weight, born date and the person skipass.
+     *
+     * @param firstName Person first name.
+     * @param lastName  Person last name.
+     * @param weight    Person weight.
+     * @param bornDate  Person born date.
+     * @param skipass   Person skipass.
+     */
+    public Person(String firstName, String lastName, double weight, Date bornDate, Skipass skipass) {
+        this(firstName, lastName, weight, bornDate);
+        this.skipass = skipass;
     }
 
     // -------------------------------------------------------------------------------- Help Methods
