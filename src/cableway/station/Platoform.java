@@ -188,14 +188,17 @@ public class Platoform extends Thread implements ActionListener {
             this.setCabinReady(false);
             this.cabin.setReady(false);
 
+            this.openExternalDoor();
             this.cabin.openExternallDoor();
 
             Thread.sleep(PEOPLE_EXIT_TIME);
 
+            this.openInternalDoor();
             this.cabin.openInternalDoor();
 
             Thread.sleep(500);
 
+            this.closeExternalDoor();
             this.cabin.closeExternalDoor();
 
             Thread.sleep(1);
