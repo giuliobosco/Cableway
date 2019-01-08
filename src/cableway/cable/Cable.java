@@ -32,7 +32,7 @@ import cableway.cabin.CabinException;
  * Cableway cable, keep the length, the position and the speed of the cableway cable.
  *
  * @author giuliobosco
- * @version 1.1
+ * @version 1.1.1
  */
 public class Cable {
 

@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * @author giuliobosco
- * @version 1.0.9
+ * @version 1.1
  */
 public class Cabin extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -51,6 +51,11 @@ public class Cabin extends Thread {
      * Cabin moved command.
      */
     public final static String MOVED = "MOVED";
+
+    /**
+     * Cabin arrived to platform command.
+     */
+    public final static String ARRIVED = "ARRIVED";
 
     /**
      * Max weight in the cabin.
@@ -470,8 +475,13 @@ public class Cabin extends Thread {
         boolean flag = true;
         while (flag) {
             try {
-                if (!(position == this.cable.getPosition())) {
+                if (position != this.cable.getPosition()) {
                     this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, MOVED));
+
+                    if (this.getCable().isArrived()) {
+                        this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ARRIVED));
+                    }
+
                     position = this.cable.getPosition();
                 }
 
