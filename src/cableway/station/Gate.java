@@ -33,7 +33,7 @@ import cableway.people.skypass.SkipassManager;
  * @author giuliobosco
  * @version 1.0
  */
-public class Gate extends Thread {
+public class Gate {
     // ------------------------------------------------------------------------------------ Costants
 
     /**
