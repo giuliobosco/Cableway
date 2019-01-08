@@ -31,7 +31,7 @@ import cableway.cabin.Cabin;
  * Cableway station platform.
  *
  * @author giuliobosco
- * @version 1.0.3
+ * @version 1.0.5
  */
 public class Platoform {
     // ------------------------------------------------------------------------------------ Costants
@@ -148,6 +148,23 @@ public class Platoform {
      */
     public void closeRightDoor() {
         this.rightDoor = false;
+    }
+
+    /**
+     * Check the cable way platform.
+     *
+     * @throws CablewayException Door open while moving.
+     */
+    public void check() throws CablewayException {
+        if (this.cabin.getCable().getPosition() != this.cablePosition) {
+            if (this.leftDoor || this.rightDoor) {
+                throw new CablewayException("Door open while moving.", CablewayException.FATAL);
+            }
+
+            if (!this.isCabinReady()) {
+                throw new CablewayException("Cabin no ready and moving", CablewayException.FATAL);
+            }
+        }
     }
 
     // ----------------------------------------------------------------------------- General Methods
