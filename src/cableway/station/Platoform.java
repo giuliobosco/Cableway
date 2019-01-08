@@ -27,14 +27,23 @@ package cableway.station;
 import cableway.CablewayException;
 import cableway.cabin.Cabin;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * Cableway station platform.
  *
  * @author giuliobosco
  * @version 1.1.1
  */
-public class Platoform {
+public class Platoform extends Thread implements ActionListener {
     // ------------------------------------------------------------------------------------ Costants
+
+    /**
+     * Time for exit the cabin.
+     */
+    private final long PEOPLE_EXIT_TIME = 10000;
+
     // ---------------------------------------------------------------------------------- Attributes
 
     /**
@@ -168,6 +177,41 @@ public class Platoform {
     }
 
     // ----------------------------------------------------------------------------- General Methods
+
+    public void cabinArrived() throws CablewayException {
+        try {
+            this.setCabinReady(false);
+            this.cabin.setReady(false);
+
+            this.cabin.openExternallDoor();
+
+            Thread.sleep(PEOPLE_EXIT_TIME);
+
+            this.cabin.openInternalDoor();
+
+            Thread.sleep(500);
+
+            this.cabin.closeExternalDoor();
+
+            Thread.sleep(1);
+        } catch (InterruptedException ie) {
+
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            if (e.getSource().getClass() == Cabin.class) {
+                if (e.getActionCommand().equals(Cabin.ARRIVED)) {
+                    this.cabinArrived();
+                }
+            }
+        } catch (CablewayException ce) {
+
+        }
+    }
+
     // --------------------------------------------------------------------------- Static Components
 
 }
