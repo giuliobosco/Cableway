@@ -92,12 +92,28 @@ public class PeopleSet {
     }
 
     /**
-     * Get the people set is full.
+     * Is full people set.
      *
      * @return People set is full, true if the people set is full else false.
      */
     public boolean isFull() {
         return this.people.size()==this.maxPeople;
+    }
+
+    /**
+     * Is empty people set.
+     *
+     * @return True if people set is empty, else false.
+     */
+    public boolean isEmpty() {
+        return this.people.size()==0;
+    }
+
+    /**
+     * Empty the people list.
+     */
+    public void clear() {
+        this.people.clear();
     }
 
     // ----------------------------------------------------------------------------- General Methods
