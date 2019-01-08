@@ -21,109 +21,97 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+ 
+package cableway.people.skypass;
 
-package cableway.skypass;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Cableway skipass.
- *
+ * 
  * @author giuliobosco
  * @version 1.0
  */
-public class Skipass {
+public class SkipassManager {
     // ------------------------------------------------------------------------------------ Costants
-
-    /**
-     * Default the skipass is valid.
-     */
-    private static final boolean DEFAULT_VALID = true;
-
-    /**
-     * Default the skipass has no blue line.
-     */
-    private static final boolean DEFAULT_BLUELINE = false;
-
     // ---------------------------------------------------------------------------------- Attributes
 
     /**
-     * Skipass valid.
+     * List of the skipasses.
      */
-    private boolean valid;
-
-    /**
-     * Skipass has blueline.
-     */
-    private boolean blueline;
+    private List<Skipass> skipasses;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
     /**
-     * Set the skipass valid.
+     * Add skipass to the skipasses list.
      *
-     * @param valid Skipass valid
+     * @param skipass Skipass to add.
      */
-    public void setValid(boolean valid) {
-        this.valid = valid;
+    public void addSkipass(Skipass skipass) {
+        this.skipasses.add(skipass);
     }
 
     /**
-     * Is Skipass valid.
+     * Remove skipass from the skipasses list.
      *
-     * @return Skipass valid.
+     * @param skipass Skipass to remove.
      */
-    public boolean isValid() {
-        return this.valid;
+    public void removeSkipass(Skipass skipass) {
+        this.skipasses.remove(skipass);
     }
 
     /**
-     * Set the blue line.
-     *
-     * @param blueline Blue line.
+     * Clear the list of skipasses.
      */
-    public void setBlueline(boolean blueline) {
-        this.blueline = blueline;
-    }
-
-    /**
-     * Is the skipass valid.
-     *
-     * @return Skipass valid.
-     */
-    public boolean isBlueline() {
-        return this.blueline;
+    public void clear() {
+        this.skipasses.clear();
     }
 
     // -------------------------------------------------------------------------------- Constructors
 
     /**
-     * Create the skipass with the valid and the blueline.
-     *
-     * @param valid Skipass valid.
-     * @param blueline Skipass has blue line.
+     * Create skipass manager initialize the list of skipasses.
      */
-    public Skipass(boolean valid, boolean blueline) {
-        this.valid = valid;
-        this.blueline = blueline;
-    }
-
-    /**
-     * Create the skipass with the valid, blue line default value.
-     *
-     * @param valid Skipass valid.
-     */
-    public Skipass(boolean valid) {
-        this(valid, DEFAULT_BLUELINE);
-    }
-
-    /**
-     * Create the skipass with all the defaul value.
-     */
-    public Skipass() {
-        this(DEFAULT_VALID);
+    public SkipassManager() {
+        this.skipasses = new ArrayList<>();
     }
 
     // -------------------------------------------------------------------------------- Help Methods
+
+    /**
+     * Is a skipass valid.
+     *
+     * @param skipass Skipass to check.
+     * @return True if the skipass is valid.
+     */
+    public boolean isValid(Skipass skipass) {
+        for (Skipass s : this.skipasses) {
+            if (s == skipass && skipass.isValid()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Has the skipass the blue line.
+     *
+     * @param skipass Skipass to check.
+     * @return True if skipass has blue line.
+     */
+    public boolean isBlueline(Skipass skipass) {
+        for (Skipass s : this.skipasses) {
+            if (s == skipass && skipass.isBlueline()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
-
+    
 }
