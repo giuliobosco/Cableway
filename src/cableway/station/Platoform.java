@@ -34,7 +34,7 @@ import java.awt.event.ActionListener;
  * Cableway station platform.
  *
  * @author giuliobosco
- * @version 1.1.1
+ * @version 1.1.2
  */
 public class Platoform extends Thread implements ActionListener {
     // ------------------------------------------------------------------------------------ Costants
@@ -178,6 +178,11 @@ public class Platoform extends Thread implements ActionListener {
 
     // ----------------------------------------------------------------------------- General Methods
 
+    /**
+     * Arrived cabin to the platform.
+     *
+     * @throws CablewayException Cabin errors.
+     */
     public void cabinArrived() throws CablewayException {
         try {
             this.setCabinReady(false);
@@ -199,6 +204,11 @@ public class Platoform extends Thread implements ActionListener {
         }
     }
 
+    /**
+     * Action performed, listener used.
+     *
+     * @param e Action event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
