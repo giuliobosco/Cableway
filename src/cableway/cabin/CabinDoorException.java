@@ -30,7 +30,7 @@ import cableway.CablewayException;
  * Cabin door exception.
  *
  * @author giuliobosco
- * @version 1.0.1
+ * @version 1.0.2
  */
 public class CabinDoorException extends CabinException {
 
@@ -62,7 +62,7 @@ public class CabinDoorException extends CabinException {
      * @return Exception status code.
      */
     private static int getStatus(Cabin source) {
-        if ((source.isLeftDoorOpen() || source.isRightDoorOpen()) && source.getCable().getSpeed() != 0) {
+        if ((source.isInternalDoorOpen() || source.isExternalDoorOpen()) && source.getCable().getSpeed() != 0) {
             return DANGER;
         }
 
@@ -80,11 +80,11 @@ public class CabinDoorException extends CabinException {
         if (exceptionStatus == DANGER) {
             String message = CablewayException.codeToString(exceptionStatus);
 
-            if (source.isLeftDoorOpen() && source.getCable().getSpeed() != 0) {
+            if (source.isInternalDoorOpen() && source.getCable().getSpeed() != 0) {
                 message += "\nLeft door is open!";
             }
 
-            if (source.isRightDoorOpen() && source.getCable().getSpeed() != 0) {
+            if (source.isExternalDoorOpen() && source.getCable().getSpeed() != 0) {
                 message += "\nRight door is open.";
             }
 
