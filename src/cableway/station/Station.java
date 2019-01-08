@@ -146,12 +146,19 @@ public class Station extends Thread {
      * @param cabin1 Cableway cabin 1.
      * @throws CablewayException Cableway exception, error with the cabin or the cable.
      */
-    public Station(Cable cable, Cabin cabin0, Cabin cabin1) throws CablewayException {
+    public Station(Cable cable, Cabin cabin0, Cabin cabin1, Platoform platoform0, Platoform platoform1) throws CablewayException {
         if (cabin0 != cabin1) {
             if (cabin0.getCable() == cable && cabin1.getCable() == cable) {
                 this.cable = cable;
                 this.cabin0 = cabin0;
                 this.cabin1 = cabin1;
+
+                if (platoform0 != platoform1) {
+                    this.platoform0 = platoform0;
+                    this.platoform1 = platoform1;
+                } else {
+                    throw new CablewayException("Platforms can't be the same", CablewayException.FATAL);
+                }
             } else {
                 String message = CablewayException.FATAL_TEXT + "\nWrong cable connected to the cabins.";
                 throw new CablewayException(message, CablewayException.FATAL);
