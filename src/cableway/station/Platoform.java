@@ -111,9 +111,9 @@ public class Platoform {
         this.leftDoor = false;
 
         if (this.cabin.getCable().getPosition() != this.cablePosition) {
-            throw new CablewayException("Cable wrong position, can't open doors", CablewayException.FATAL);
+            throw new CablewayException("Cable wrong position, can't open doors", CablewayException.DANGER);
         } else if (this.isCabinReady()) {
-            throw new CablewayException("Cabin ready to move, can't open doors", CablewayException.FATAL);
+            throw new CablewayException("Cabin ready to move, can't open doors", CablewayException.DANGER);
         } else {
             this.leftDoor = true;
         }
@@ -135,9 +135,9 @@ public class Platoform {
         this.rightDoor = false;
 
         if (this.cabin.getCable().getPosition() != this.cablePosition) {
-            throw new CablewayException("Cable wrong position, can't open doors", CablewayException.FATAL);
+            throw new CablewayException("Cable wrong position, can't open doors", CablewayException.DANGER);
         } else if (this.isCabinReady()) {
-            throw new CablewayException("Cabin ready to move, can't open doors", CablewayException.FATAL);
+            throw new CablewayException("Cabin ready to move, can't open doors", CablewayException.DANGER);
         } else {
             this.rightDoor = true;
         }
