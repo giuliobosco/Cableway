@@ -24,6 +24,9 @@
 
 package cableway.station;
 
+import cableway.CablewayException;
+import cableway.cabin.Cabin;
+import cableway.cable.Cable;
 import cableway.people.PeopleSet;
 
 /**
@@ -51,6 +54,21 @@ public class Station extends Thread {
      * People ready to go in the ready people space.
      */
     private PeopleSet inPeople;
+
+    /**
+     * Cableway cabin 0.
+     */
+    private Cabin cabin0;
+
+    /**
+     * Cableway cabin 1.
+     */
+    private Cabin cabin1;
+
+    /**
+     * Cableway cable.
+     */
+    private Cable cable;
 
     /**
      * Station left door for the cabin 0.
@@ -139,6 +157,31 @@ public class Station extends Thread {
     }
 
     // -------------------------------------------------------------------------------- Constructors
+
+    /**
+     * Create the station with the cable and the two cabins.
+     *
+     * @param cable Cableway cable.
+     * @param cabin0 Cableway cabin 0.
+     * @param cabin1 Cableway cabin 1.
+     * @throws CablewayException Cableway exception, error with the cabin or the cable.
+     */
+    public Station(Cable cable, Cabin cabin0, Cabin cabin1) throws CablewayException {
+        if (cabin0 != cabin1) {
+            if (cabin0.getCable() == cable && cabin1.getCable() == cable) {
+                this.cable = cable;
+                this.cabin0 = cabin0;
+                this.cabin1 = cabin1;
+            } else {
+                String message = CablewayException.FATAL_TEXT + "\nWrong cable connected to the cabins.";
+                throw new CablewayException(message, CablewayException.FATAL);
+            }
+        } else {
+            String message = CablewayException.FATAL_TEXT + "\nCabins cant't be the same.";
+            throw new CablewayException(message, CablewayException.FATAL);
+        }
+    }
+
     // -------------------------------------------------------------------------------- Help Methods
     // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
