@@ -52,6 +52,36 @@ public class Station extends Thread {
      */
     private PeopleSet inPeople;
 
+    /**
+     * Station left door for the cabin 0.
+     */
+    private boolean cabin0LeftDoor;
+
+    /**
+     * Station right door for the cabin 0.
+     */
+    private boolean cabin0RightDoor;
+
+    /**
+     * Station left door for the cabin 1.
+     */
+    private boolean cabin1LeftDoor;
+
+    /**
+     * Station right door for the cabin 1.
+     */
+    private boolean cabin1RightDoor;
+
+    /**
+     * Station cabin 0 ready to move.
+     */
+    private boolean cabin0ready;
+
+    /**
+     * Station cabin 1 ready to move.
+     */
+    private boolean cabin1ready;
+
     // --------------------------------------------------------------------------- Getters & Setters
 
     /**
