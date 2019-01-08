@@ -80,8 +80,8 @@ public class Platoform extends Thread implements ActionListener {
      */
     public void setCabinReady(boolean cabinReady) throws CablewayException {
         if (cabinReady) {
-            this.closeLeftDoor();
-            this.closeRightDoor();
+            this.closeExternalDoor();
+            this.closeExternalDoor();
         }
         this.cabinReady = cabinReady;
     }
