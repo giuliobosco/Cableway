@@ -156,8 +156,7 @@ public class Cable {
             this.setPosition(0);
             this.setSpeed(0);
         } else {
-            String message = CablewayException.FATAL_TEXT + "Cabins cant't be the same.";
-            throw new CablewayException(message, CablewayException.FATAL);
+            throw new CablewayException("Cabins cant't be the same.", CablewayException.FATAL);
         }
     }
 
@@ -173,13 +172,11 @@ public class Cable {
         if (this.getPosition() != 0 && this.getPosition() != this.getLength()) {
 
             if (!this.cabin0.isReady()) {
-                String message = CablewayException.FATAL + "\nCabin 0: can't move, is not ready";
-                throw new CablewayException(message, CablewayException.FATAL);
+                throw new CablewayException("Cabin 0: can't move, is not ready", CablewayException.FATAL);
             }
 
             if (!this.cabin1.isReady()) {
-                String message = CablewayException.FATAL + "\nCabin 1: can't move, is not ready";
-                throw new CablewayException(message, CablewayException.FATAL);
+                throw new CablewayException("Cabin 1: can't move, is not ready", CablewayException.FATAL);
             }
         }
     }
@@ -192,7 +189,7 @@ public class Cable {
      */
     private void checkLength(double length) throws CableLengthException {
         if (length <= 0) {
-            String message = CablewayException.FATAL_TEXT + "\nThe cable must longer than 0";
+            String message = CablewayException.FATAL_TEXT + "The cable must longer than 0";
             throw new CableLengthException(message);
         }
     }
@@ -243,13 +240,11 @@ public class Cable {
 
         if (speed != 0) {
             if (!this.cabin0.isReady()) {
-                String message = CablewayException.DANGER_TEXT + "\nCabin 0 is not ready.";
-                throw new CabinException(message, CablewayException.DANGER);
+                throw new CabinException("Cabin 0 is not ready.", CablewayException.DANGER);
             }
 
             if (!this.cabin1.isReady()) {
-                String message = CablewayException.DANGER_TEXT + "\nCabin 1 is not ready.";
-                throw  new CabinException(message, CablewayException.DANGER);
+                throw  new CabinException("Cabin 1 is not ready.", CablewayException.DANGER);
             }
         }
     }

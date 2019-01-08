@@ -33,7 +33,6 @@ import cableway.people.Person;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.ExceptionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

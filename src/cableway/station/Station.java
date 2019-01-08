@@ -160,12 +160,10 @@ public class Station extends Thread {
                     throw new CablewayException("Platforms can't be the same", CablewayException.FATAL);
                 }
             } else {
-                String message = CablewayException.FATAL_TEXT + "\nWrong cable connected to the cabins.";
-                throw new CablewayException(message, CablewayException.FATAL);
+                throw new CablewayException("Wrong cable connected to the cabins.", CablewayException.FATAL);
             }
         } else {
-            String message = CablewayException.FATAL_TEXT + "\nCabins cant't be the same.";
-            throw new CablewayException(message, CablewayException.FATAL);
+            throw new CablewayException("Cabins cant't be the same.", CablewayException.FATAL);
         }
     }
 
