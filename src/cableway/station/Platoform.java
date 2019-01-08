@@ -47,9 +47,9 @@ public class Platoform {
     private boolean rightDoor;
 
     /**
-     * Station right door for the cabin 0.
+     * Platform cabin ready to move.
      */
-    private boolean cabinRightDoor;
+    private boolean cabinReady;
 
     /**
      * Platform cabin.
@@ -58,6 +58,25 @@ public class Platoform {
 
 
     // --------------------------------------------------------------------------- Getters & Setters
+
+    /**
+     * Set the platform cabin ready to move.
+     *
+     * @param cabinReady Platform cabin ready to move.
+     */
+    public void setCabinReady(boolean cabinReady) {
+        this.cabinReady = cabinReady;
+    }
+
+    /**
+     * Is the platform cabin ready to move.
+     *
+     * @return Platform cabin ready to move.
+     */
+    public boolean isCabinReady() {
+        return this.cabinReady;
+    }
+
     // -------------------------------------------------------------------------------- Constructors
 
     /**
