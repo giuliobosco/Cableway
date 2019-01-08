@@ -31,21 +31,21 @@ import cableway.cabin.Cabin;
  * Cableway station platform.
  *
  * @author giuliobosco
- * @version 1.1.0
+ * @version 1.1.1
  */
 public class Platoform {
     // ------------------------------------------------------------------------------------ Costants
     // ---------------------------------------------------------------------------------- Attributes
 
     /**
-     * Platform internal door for the cabin.
+     * Platform internal door is open for the cabin.
      */
-    private boolean internalDoor;
+    private boolean internalDoorOpen;
 
     /**
-     * Platform external door for the cabin 0.
+     * Platform external door is open for the cabin 0.
      */
-    private boolean externalDoor;
+    private boolean externalDoorOpen;
 
     /**
      * Platform cabin ready to move.
@@ -69,7 +69,7 @@ public class Platoform {
      *
      * @param cabinReady Platform cabin ready to move.
      */
-    public void setCabinReady(boolean cabinReady) {
+    public void setCabinReady(boolean cabinReady) throws CablewayException {
         if (cabinReady) {
             this.closeLeftDoor();
             this.closeRightDoor();
@@ -96,8 +96,8 @@ public class Platoform {
     public Platoform(Cabin cabin, double cablePosition) {
         this.cabin = cabin;
         this.cablePosition = cablePosition;
-        this.internalDoor = false;
-        this.externalDoor = false;
+        this.internalDoorOpen = false;
+        this.externalDoorOpen = false;
     }
 
     // -------------------------------------------------------------------------------- Help Methods
@@ -108,14 +108,14 @@ public class Platoform {
      * @throws CablewayException Cableway cable in wrong position or cabin ready.
      */
     public void openLeftDoor() throws CablewayException {
-        this.internalDoor = false;
+        this.internalDoorOpen = false;
 
         if (this.cabin.getCable().getPosition() != this.cablePosition) {
             throw new CablewayException("Cable wrong position, can't open doors", CablewayException.DANGER);
         } else if (this.isCabinReady()) {
             throw new CablewayException("Cabin ready to move, can't open doors", CablewayException.DANGER);
         } else {
-            this.internalDoor = true;
+            this.internalDoorOpen = true;
         }
     }
 
@@ -123,7 +123,7 @@ public class Platoform {
      * Close platform left door.
      */
     public void closeLeftDoor() {
-        this.internalDoor = false;
+        this.internalDoorOpen = false;
     }
 
     /**
@@ -132,14 +132,14 @@ public class Platoform {
      * @throws CablewayException Cableway cable in wrong position or cabin ready.
      */
     public void openRightDoor() throws CablewayException {
-        this.externalDoor = false;
+        this.externalDoorOpen = false;
 
         if (this.cabin.getCable().getPosition() != this.cablePosition) {
             throw new CablewayException("Cable wrong position, can't open doors", CablewayException.DANGER);
         } else if (this.isCabinReady()) {
             throw new CablewayException("Cabin ready to move, can't open doors", CablewayException.DANGER);
         } else {
-            this.externalDoor = true;
+            this.externalDoorOpen = true;
         }
     }
 
@@ -147,7 +147,7 @@ public class Platoform {
      * Close platform right door.
      */
     public void closeRightDoor() {
-        this.externalDoor = false;
+        this.externalDoorOpen = false;
     }
 
     /**
@@ -157,7 +157,7 @@ public class Platoform {
      */
     public void check() throws CablewayException {
         if (this.cabin.getCable().getPosition() != this.cablePosition) {
-            if (this.internalDoor || this.externalDoor) {
+            if (this.internalDoorOpen || this.externalDoorOpen) {
                 throw new CablewayException("Door open while moving.", CablewayException.FATAL);
             }
 
