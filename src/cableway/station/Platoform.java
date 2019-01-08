@@ -24,13 +24,14 @@
 
 package cableway.station;
 
+import cableway.CablewayException;
 import cableway.cabin.Cabin;
 
 /**
  * Cableway station platform.
  *
  * @author giuliobosco
- * @version 1.0
+ * @version 1.0.3
  */
 public class Platoform {
     // ------------------------------------------------------------------------------------ Costants
@@ -56,6 +57,10 @@ public class Platoform {
      */
     private Cabin cabin;
 
+    /**
+     * Platform cable position.
+     */
+    private double cablePosition;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -65,6 +70,10 @@ public class Platoform {
      * @param cabinReady Platform cabin ready to move.
      */
     public void setCabinReady(boolean cabinReady) {
+        if (cabinReady) {
+            this.closeLeftDoor();
+            this.closeRightDoor();
+        }
         this.cabinReady = cabinReady;
     }
 
@@ -92,6 +101,55 @@ public class Platoform {
     }
 
     // -------------------------------------------------------------------------------- Help Methods
+
+    /**
+     * Open platform left door.
+     *
+     * @throws CablewayException Cableway cable in wrong position or cabin ready.
+     */
+    public void openLeftDoor() throws CablewayException {
+        this.leftDoor = false;
+
+        if (this.cabin.getCable().getPosition() != this.cablePosition) {
+            throw new CablewayException("Cable wrong position, can't open doors", CablewayException.FATAL);
+        } else if (this.isCabinReady()) {
+            throw new CablewayException("Cabin ready to move, can't open doors", CablewayException.FATAL);
+        } else {
+            this.leftDoor = true;
+        }
+    }
+
+    /**
+     * Close platform left door.
+     */
+    public void closeLeftDoor() {
+        this.leftDoor = false;
+    }
+
+    /**
+     * Open platform right door.
+     *
+     * @throws CablewayException Cableway cable in wrong position or cabin ready.
+     */
+    public void openRightDoor() throws CablewayException {
+        this.rightDoor = false;
+
+        if (this.cabin.getCable().getPosition() != this.cablePosition) {
+            throw new CablewayException("Cable wrong position, can't open doors", CablewayException.FATAL);
+        } else if (this.isCabinReady()) {
+            throw new CablewayException("Cabin ready to move, can't open doors", CablewayException.FATAL);
+        } else {
+            this.rightDoor = true;
+        }
+    }
+
+    /**
+     * Close platform right door.
+     */
+    public void closeRightDoor() {
+        this.rightDoor = false;
+    }
+
     // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
 
