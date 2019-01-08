@@ -208,6 +208,21 @@ public class Platoform extends Thread implements ActionListener {
     }
 
     /**
+     * Prepare the cabin to start.
+     *
+     * @throws CablewayException Cableway exception.
+     */
+    private void prepareCabin() throws CablewayException {
+
+        this.cabin.closeExternalDoor();
+        this.closeExternalDoor();
+        this.cabin.closeInternalDoor();
+        this.closeInternalDoor();
+
+        this.setCabinReady(true);
+    }
+
+    /**
      * Action performed, listener used.
      *
      * @param e Action event.
@@ -218,6 +233,10 @@ public class Platoform extends Thread implements ActionListener {
             if (e.getSource().getClass() == Cabin.class) {
                 if (e.getActionCommand().equals(Cabin.ARRIVED)) {
                     this.cabinArrived();
+                }
+
+                if (e.getActionCommand().equals(Cabin.READY)) {
+                    this.prepareCabin();
                 }
             }
         } catch (CablewayException ce) {
