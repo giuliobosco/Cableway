@@ -95,6 +95,22 @@ public class SkipassManager {
         return false;
     }
 
+    /**
+     * Has the skipass the blue line.
+     *
+     * @param skipass Skipass to check.
+     * @return True if skipass has blue line.
+     */
+    public boolean isBlueline(Skipass skipass) {
+        for (Skipass s : this.skipasses) {
+            if (s == skipass && skipass.isBlueline()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // ----------------------------------------------------------------------------- General Methods
     // --------------------------------------------------------------------------- Static Components
     
