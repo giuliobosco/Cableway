@@ -269,6 +269,7 @@ public class Cabin extends Thread {
      */
     public void setPeople(PeopleSet people) throws CablewayException {
         this.people = people;
+        this.setWeight(people.getTotalWeight());
     }
 
     /**
