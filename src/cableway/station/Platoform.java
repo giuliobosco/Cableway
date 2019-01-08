@@ -57,9 +57,9 @@ public class Platoform extends Thread implements ActionListener {
     private boolean externalDoorOpen;
 
     /**
-     * Platform cabin ready to move.
+     * Platform ready to move.
      */
-    private boolean cabinReady;
+    private boolean ready;
 
     /**
      * Platform cabin.
@@ -74,25 +74,25 @@ public class Platoform extends Thread implements ActionListener {
     // --------------------------------------------------------------------------- Getters & Setters
 
     /**
-     * Set the platform cabin ready to move.
+     * Set the platform ready to move.
      *
-     * @param cabinReady Platform cabin ready to move.
+     * @param ready Platform ready to move.
      */
-    public void setCabinReady(boolean cabinReady) throws CablewayException {
-        if (cabinReady) {
+    public void setReady(boolean ready) throws CablewayException {
+        if (ready) {
             this.closeExternalDoor();
             this.closeExternalDoor();
         }
-        this.cabinReady = cabinReady;
+        this.ready = ready;
     }
 
     /**
-     * Is the platform cabin ready to move.
+     * Is the platform ready to move.
      *
-     * @return Platform cabin ready to move.
+     * @return Platform ready to move.
      */
-    public boolean isCabinReady() {
-        return this.cabinReady;
+    public boolean isReady() {
+        return this.ready;
     }
 
     // -------------------------------------------------------------------------------- Constructors
@@ -121,7 +121,7 @@ public class Platoform extends Thread implements ActionListener {
 
         if (this.cabin.getCable().getPosition() != this.cablePosition) {
             throw new CablewayException("Cable wrong position, can't open doors", CablewayException.DANGER);
-        } else if (this.isCabinReady()) {
+        } else if (this.isReady()) {
             throw new CablewayException("Cabin ready to move, can't open doors", CablewayException.DANGER);
         } else {
             this.internalDoorOpen = true;
@@ -145,7 +145,7 @@ public class Platoform extends Thread implements ActionListener {
 
         if (this.cabin.getCable().getPosition() != this.cablePosition) {
             throw new CablewayException("Cable wrong position, can't open doors", CablewayException.DANGER);
-        } else if (this.isCabinReady()) {
+        } else if (this.isReady()) {
             throw new CablewayException("Cabin ready to move, can't open doors", CablewayException.DANGER);
         } else {
             this.externalDoorOpen = true;
@@ -170,7 +170,7 @@ public class Platoform extends Thread implements ActionListener {
                 throw new CablewayException("Door open while moving.", CablewayException.FATAL);
             }
 
-            if (!this.isCabinReady()) {
+            if (!this.isReady()) {
                 throw new CablewayException("Cabin no ready and moving", CablewayException.FATAL);
             }
         }
@@ -185,7 +185,7 @@ public class Platoform extends Thread implements ActionListener {
      */
     private void cabinArrived() throws CablewayException {
         try {
-            this.setCabinReady(false);
+            this.setReady(false);
             this.cabin.setReady(false);
 
             this.openExternalDoor();
@@ -219,7 +219,7 @@ public class Platoform extends Thread implements ActionListener {
         this.cabin.closeInternalDoor();
         this.closeInternalDoor();
 
-        this.setCabinReady(true);
+        this.setReady(true);
     }
 
     /**
