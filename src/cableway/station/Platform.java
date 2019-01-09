@@ -110,6 +110,15 @@ public class Platform extends Thread implements ActionListener {
         return this.cabin;
     }
 
+    /**
+     * Is the cabin in this platform.
+     *
+     * @return True if the cabin is in this platform.
+     */
+    public boolean isCabinHere() {
+        return this.cabin.getCable().getPosition() == this.cablePosition && this.cabin.getCable().getSpeed() == 0;
+    }
+
     // -------------------------------------------------------------------------------- Constructors
 
     /**
