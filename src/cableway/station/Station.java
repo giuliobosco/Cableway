@@ -68,7 +68,7 @@ public class Station extends Thread {
     /**
      * Platform for cabin 1.
      */
-    private Platoform platoform1;
+    private Platoform platform1;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
