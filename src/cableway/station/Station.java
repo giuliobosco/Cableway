@@ -218,7 +218,7 @@ public class Station extends Thread implements ActionListener {
     public Station(int position, Cabin cabin0, Cabin cabin1, CablewayActionManager cablewayActionManager) throws CablewayException {
         this.cablewayActionManager = cablewayActionManager;
         this.setGates(new ArrayList<>());
-        
+
         if (cabin0 != cabin1) {
             if (cabin0.getCable() == cabin1.getCable()) {
                 if (position == LOWER_STATION) {
@@ -252,6 +252,21 @@ public class Station extends Thread implements ActionListener {
         }
 
         this.getInPeople().clear();
+    }
+
+    /**
+     * Get an free gate.
+     *
+     * @return Free gate.
+     */
+    public Gate getFreeGate() {
+        for (Gate gate : this.getGates()) {
+            if (gate.isOpen()) {
+                return gate;
+            }
+        }
+
+        return null;
     }
 
     // ----------------------------------------------------------------------------- General Methods
