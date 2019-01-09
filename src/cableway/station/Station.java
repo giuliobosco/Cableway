@@ -39,7 +39,7 @@ import java.util.List;
  * Cableway station class.
  *
  * @author giuliobosco
- * @version 1.1.1
+ * @version 1.1.2
  */
 public class Station extends Thread implements ActionListener {
     // ------------------------------------------------------------------------------------ Costants
@@ -260,13 +260,13 @@ public class Station extends Thread implements ActionListener {
      * @return Free gate.
      */
     public Gate getFreeGate() {
-        for (Gate gate : this.getGates()) {
-            if (gate.isOpen()) {
-                return gate;
+        while (true) {
+            for (Gate gate : this.getGates()) {
+                if (gate.isOpen()) {
+                    return gate;
+                }
             }
         }
-
-        return null;
     }
 
     // ----------------------------------------------------------------------------- General Methods
