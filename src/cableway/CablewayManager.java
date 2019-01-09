@@ -74,6 +74,15 @@ public class CablewayManager {
     // --------------------------------------------------------------------------- Getters & Setters
 
     /**
+     * Get the cableway action manager.
+     *
+     * @return Cableway action manager.
+     */
+    public CablewayActionManager getCablewayActionManager() {
+        return this.cablewayActionManager;
+    }
+
+    /**
      * Get the cabin 0 panel.
      *
      * @return Cabin 0 panel.
