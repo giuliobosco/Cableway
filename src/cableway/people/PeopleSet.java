@@ -48,6 +48,17 @@ public class PeopleSet {
     private int maxPeople;
 
     // --------------------------------------------------------------------------- Getters & Setters
+
+    /**
+     * Get the people of the people set.
+     *
+     * @return People of the people set.
+     */
+    public List<Person> getPeople() {
+        return this.people;
+    }
+
+
     // -------------------------------------------------------------------------------- Constructors
 
     /**
