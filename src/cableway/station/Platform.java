@@ -24,6 +24,7 @@
 
 package cableway.station;
 
+import cableway.CablewayActionManager;
 import cableway.CablewayException;
 import cableway.cabin.Cabin;
 
@@ -71,6 +72,11 @@ public class Platform extends Thread implements ActionListener {
      */
     private double cablePosition;
 
+    /**
+     * Cableway action manager.
+     */
+    private CablewayActionManager cablewayActionManager;
+
     // --------------------------------------------------------------------------- Getters & Setters
 
     /**
@@ -110,10 +116,13 @@ public class Platform extends Thread implements ActionListener {
      * Create the platform with the platform cabin.
      *
      * @param cabin Platform cabin.
+     * @param cablePosition Platform cable position.
+     * @param cablewayActionManager Cableway action mangaer.
      */
-    public Platform(Cabin cabin, double cablePosition) {
+    public Platform(Cabin cabin, double cablePosition, CablewayActionManager cablewayActionManager) {
         this.cabin = cabin;
         this.cablePosition = cablePosition;
+        this.cablewayActionManager = cablewayActionManager;
         this.internalDoorOpen = false;
         this.externalDoorOpen = false;
     }
@@ -212,7 +221,7 @@ public class Platform extends Thread implements ActionListener {
 
             Thread.sleep(1);
         } catch (InterruptedException ie) {
-
+            this.cablewayActionManager.exceptionThrower(ie);
         }
     }
 
@@ -249,7 +258,7 @@ public class Platform extends Thread implements ActionListener {
                 }
             }
         } catch (CablewayException ce) {
-
+            this.cablewayActionManager.exceptionThrower(ce);
         }
     }
 
