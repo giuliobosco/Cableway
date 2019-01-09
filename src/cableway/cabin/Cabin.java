@@ -32,11 +32,10 @@ import cableway.people.PeopleSet;
 import cableway.people.Person;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.ExceptionListener;
-import java.util.List;
 
 /**
+ * Cableway cabin.
+ *
  * @author giuliobosco
  * @version 1.1.1
  */
@@ -249,7 +248,7 @@ public class Cabin extends Thread {
     /**
      * Create the cabin with the cable.
      *
-     * @param cable Cable of the cabin.
+     * @param cable                 Cable of the cabin.
      * @param cablewayActionManager Cableway action manager.
      */
     public Cabin(Cable cable, CablewayActionManager cablewayActionManager) throws FullSetException {
