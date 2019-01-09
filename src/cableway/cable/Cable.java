@@ -65,16 +65,6 @@ public class Cable {
      */
     private double speed;
 
-    /**
-     * Cabin 0, connected to one end of the cable, opposite of cabin 1.
-     */
-    private Cabin cabin0;
-
-    /**
-     * Cabin 1, connected to on end of the cable, opposite of cabin 0.
-     */
-    private Cabin cabin1;
-
     // --------------------------------------------------------------------------- Getters & Setters
 
     /**
@@ -126,7 +116,6 @@ public class Cable {
      * @param speed Speed of the cable.
      */
     public void setSpeed(double speed) throws CablewayException {
-        this.checkSpeed(speed);
         this.speed = speed;
     }
 
@@ -148,38 +137,13 @@ public class Cable {
      * @param length Length of the cable.
      * @throws CablewayException Cableway exception,
      */
-    public Cable(double length, Cabin cabin0, Cabin cabin1) throws CablewayException {
-        if (cabin0 != cabin1) {
-            this.setLength(length);
-            this.cabin0 = cabin0;
-            this.cabin1 = cabin1;
-            this.setPosition(0);
-            this.setSpeed(0);
-        } else {
-            throw new CablewayException("Cabins cant't be the same.", CablewayException.FATAL);
-        }
+    public Cable(double length) throws CablewayException {
+        this.setLength(length);
+        this.setPosition(0);
+        this.setSpeed(0);
     }
 
     // -------------------------------------------------------------------------------- Help Methods
-
-    /**
-     * Check the position of the cable with the cabins, the cable have to be at position 0 or length
-     * if one of the cabin is not ready.
-     *
-     * @throws CablewayException Cableway exception, cabins can't move.
-     */
-    private void checkCabinPosition() throws CablewayException {
-        if (this.getPosition() != 0 && this.getPosition() != this.getLength()) {
-
-            if (!this.cabin0.isReady()) {
-                throw new CablewayException("Cabin 0: can't move, is not ready", CablewayException.FATAL);
-            }
-
-            if (!this.cabin1.isReady()) {
-                throw new CablewayException("Cabin 1: can't move, is not ready", CablewayException.FATAL);
-            }
-        }
-    }
 
     /**
      * Check the length of the cable.
@@ -223,39 +187,7 @@ public class Cable {
      */
     private void checkPosition() throws CablePositionException {
         this.checkPosition(this.getPosition());
-    }
 
-    /**
-     * Check the speed of the cable.
-     * Must be bigger than minus max speed, smaller than max speed and checks also that the cabins
-     * are ready.
-     *
-     * @param speed Cabin speed.
-     * @throws CableSpeedException Cabin speed exception, not valid speed.
-     */
-    private void checkSpeed(double speed) throws CablewayException {
-        if (speed > MAX_SPEED || speed < -MAX_SPEED) {
-            throw new CableSpeedException(this);
-        }
-
-        if (speed != 0) {
-            if (!this.cabin0.isReady()) {
-                throw new CabinException("Cabin 0 is not ready.", CablewayException.DANGER);
-            }
-
-            if (!this.cabin1.isReady()) {
-                throw  new CabinException("Cabin 1 is not ready.", CablewayException.DANGER);
-            }
-        }
-    }
-
-    /**
-     * Check the speed of the cable.
-     *
-     * @throws CableSpeedException Cabin speed exception, not valid speed.
-     */
-    private void checkSpeed() throws CablewayException {
-        this.checkSpeed(this.getSpeed());
     }
 
     /**
@@ -266,7 +198,6 @@ public class Cable {
     public void checkCable() throws CablewayException {
         this.checkLength();
         this.checkPosition();
-        this.checkSpeed();
     }
 
     /**
