@@ -95,6 +95,15 @@ public class Platoform extends Thread implements ActionListener {
         return this.ready;
     }
 
+    /**
+     * Get the platform cabin.
+     *
+     * @return Platform cabin.
+     */
+    public Cabin getCabin() {
+        return this.cabin;
+    }
+
     // -------------------------------------------------------------------------------- Constructors
 
     /**
