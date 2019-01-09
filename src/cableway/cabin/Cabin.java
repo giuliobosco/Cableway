@@ -24,6 +24,7 @@
 
 package cableway.cabin;
 
+import cableway.CablewayActionManager;
 import cableway.CablewayException;
 import cableway.cable.Cable;
 import cableway.people.FullSetException;
@@ -100,14 +101,9 @@ public class Cabin extends Thread {
     private boolean ready;
 
     /**
-     * Action listeners list.
+     * Cableway action manager.
      */
-    private List<ActionListener> actionListeners;
-
-    /**
-     * Exception listeners list.
-     */
-    private List<ExceptionListener> exceptionListeners;
+    private CablewayActionManager cablewayActionManager;
 
     /**
      * People in the cabin.
@@ -173,7 +169,9 @@ public class Cabin extends Thread {
         if (ready) {
             this.checkCabin();
 
-            this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, READY));
+            this.cablewayActionManager.actionPerformer(
+                    new ActionEvent(this, ActionEvent.ACTION_PERFORMED, READY)
+            );
         }
 
         this.ready = ready;
@@ -186,82 +184,6 @@ public class Cabin extends Thread {
      */
     public boolean isReady() {
         return this.ready && (this.getCable().getSpeed() == 0);
-    }
-
-    /**
-     * Get the action listeners list.
-     *
-     * @return Action listeners list.
-     */
-    public List<ActionListener> getActionListeners() {
-        return this.actionListeners;
-    }
-
-    /**
-     * Add an action listener to the list of action listeners.
-     *
-     * @param actionListener Action listener to add to the list of action listeners.
-     */
-    public void addActionListener(ActionListener actionListener) {
-        this.getActionListeners().add(actionListener);
-    }
-
-    /**
-     * Remove an action listener from the list of action listeners.
-     *
-     * @param actionListener Action listener to remove from the list of action listeners.
-     */
-    public void removeActionListener(ActionListener actionListener) {
-        this.getActionListeners().remove(actionListener);
-    }
-
-    /**
-     * Perform action to all action listeners.
-     *
-     * @param e Action event to perform.
-     */
-    public void actionPerformer(ActionEvent e) {
-        for (ActionListener actionListener : this.getActionListeners()) {
-            actionListener.actionPerformed(e);
-        }
-    }
-
-    /**
-     * Get the exception listeners list.
-     *
-     * @return Exception listeners list.
-     */
-    public List<ExceptionListener> getExceptionListeners() {
-        return this.exceptionListeners;
-    }
-
-    /**
-     * Add an exception listener to the list of exception listeners.
-     *
-     * @param exceptionListener Exception listener to add.
-     */
-    public void addExceptionListener(ExceptionListener exceptionListener) {
-        this.getExceptionListeners().add(exceptionListener);
-    }
-
-    /**
-     * Remove an exception listener from the list of exception listeners.
-     *
-     * @param exceptionListener Exception listener to remove.
-     */
-    public void removeExceptionListener(ExceptionListener exceptionListener) {
-        this.getExceptionListeners().remove(exceptionListener);
-    }
-
-    /**
-     * Throw exception to all exception listeners.
-     *
-     * @param e Exception to throw.
-     */
-    public void exceptionThrower(Exception e) {
-        for (ExceptionListener exceptionListener : this.getExceptionListeners()) {
-            exceptionListener.exceptionThrown(e);
-        }
     }
 
     /**
@@ -325,9 +247,11 @@ public class Cabin extends Thread {
      * Create the cabin with the cable.
      *
      * @param cable Cable of the cabin.
+     * @param cablewayActionManager Cableway action manager.
      */
-    public Cabin(Cable cable) throws FullSetException {
+    public Cabin(Cable cable, CablewayActionManager cablewayActionManager) throws FullSetException {
         this.cable = cable;
+        this.cablewayActionManager = cablewayActionManager;
         this.people = new PeopleSet(MAX_PEOPLE);
     }
 
@@ -476,10 +400,14 @@ public class Cabin extends Thread {
         while (flag) {
             try {
                 if (position != this.cable.getPosition()) {
-                    this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, MOVED));
+                    this.cablewayActionManager.actionPerformer(
+                            new ActionEvent(this, ActionEvent.ACTION_PERFORMED, MOVED)
+                    );
 
                     if (this.getCable().isArrived()) {
-                        this.actionPerformer(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ARRIVED));
+                        this.cablewayActionManager.actionPerformer(
+                                new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ARRIVED)
+                        );
                     }
 
                     position = this.cable.getPosition();
@@ -492,7 +420,7 @@ public class Cabin extends Thread {
                     flag = false;
                 }
             } catch (InterruptedException | CablewayException e) {
-                this.exceptionThrower(e);
+                this.cablewayActionManager.exceptionThrower(e);
             }
         }
     }
