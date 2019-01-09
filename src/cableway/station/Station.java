@@ -150,7 +150,11 @@ public class Station extends Thread implements ActionListener {
      * @return People ready to go in the ready people space.
      */
     public PeopleSet getInPeople() {
-        return this.inPeople;
+        if (this.isInPeopleActive()) {
+            return this.inPeople;
+        } else {
+            return this.readyPeople;
+        }
     }
 
     /**
