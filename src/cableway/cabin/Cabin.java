@@ -238,6 +238,9 @@ public class Cabin extends Thread {
     public void emptyPeople() throws CabinWeightException {
         this.decrementWeight(this.getPeople().getTotalWeight());
 
+        for (Person person : this.getPeople().getPeople()) {
+            person.setBlocked(false);
+        }
         this.getPeople().clear();
     }
 
