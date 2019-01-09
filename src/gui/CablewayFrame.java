@@ -95,7 +95,6 @@ public class CablewayFrame extends JFrame implements Runnable {
         try {
             while (cabin0Panel.getCabin().getCable().getPosition() < cabin0Panel.getCabin().getCable().getLength()) {
                 cabin0Panel.getCabin().getCable().incrementPosition(10);
-                System.out.println(cabin0Panel.getCabin().getCable().getPosition());
                 Thread.sleep(50);
             }
 
