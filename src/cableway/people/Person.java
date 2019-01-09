@@ -25,6 +25,7 @@
 package cableway.people;
 
 import cableway.people.skypass.Skipass;
+import cableway.station.Station;
 import help.Random;
 
 import java.util.Date;
@@ -35,7 +36,7 @@ import java.util.Date;
  * @author giuliobosco
  * @version 1.0
  */
-public class Person {
+public class Person extends Thread {
     // ------------------------------------------------------------------------------------ Costants
 
     /**
@@ -74,6 +75,16 @@ public class Person {
      * Cableway person skipass.
      */
     private Skipass skipass;
+
+    /**
+     * Station where to take the cableway.
+     */
+    private Station station;
+
+    /**
+     * Person is blocked in People set.
+     */
+    private boolean blocked;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -142,6 +153,33 @@ public class Person {
         return this.skipass;
     }
 
+    /**
+     * Set the station where the person take the cableway.
+     *
+     * @param station Station where the person take the cableway.
+     */
+    public void setStation(Station station) {
+        this.station = station;
+    }
+
+    /**
+     * Set the person is blocked in People set.
+     *
+     * @param blocked Person is blocked in People set.
+     */
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
+    /**
+     * Get the person is blocked in People set.
+     *
+     * @return Person is blocked in People set.
+     */
+    public boolean isBlocked() {
+        return this.blocked;
+    }
+
     // -------------------------------------------------------------------------------- Constructors
 
     /**
@@ -175,6 +213,27 @@ public class Person {
 
     // -------------------------------------------------------------------------------- Help Methods
     // ----------------------------------------------------------------------------- General Methods
+
+    /**
+     * Run the person life.
+     */
+    @Override
+    public void run() {
+        while (this.isInterrupted()) {
+            try {
+                if (this.station.getFreeGate().open(this.skipass)) {
+                    this.station.getInPeople().addPerson(this);
+
+                    while (!this.isBlocked()) Thread.sleep(300);
+
+                    this.interrupt();
+                }
+            } catch (FullSetException | InterruptedException ignore) {
+
+            }
+        }
+    }
+
     // --------------------------------------------------------------------------- Static Components
 
     /**
