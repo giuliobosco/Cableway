@@ -31,9 +31,9 @@ import cableway.people.skypass.SkipassManager;
  * Cableway gate.
  *
  * @author giuliobosco
- * @version 1.0
+ * @version 1.0.1
  */
-public class Gate {
+public class Gate extends Thread {
     // ------------------------------------------------------------------------------------ Costants
 
     /**
@@ -79,6 +79,15 @@ public class Gate {
         return this.open;
     }
 
+    /**
+     * Set the gate open.
+     *
+     * @param open Gate open.
+     */
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
     // -------------------------------------------------------------------------------- Constructors
 
     /**
@@ -112,13 +121,44 @@ public class Gate {
      */
     public boolean open(Skipass skipass) {
         if (this.isBlueline()) {
-            return this.skipassManager.isValid(skipass) && this.skipassManager.isBlueline(skipass);
+            if (this.skipassManager.isValid(skipass) && this.skipassManager.isBlueline(skipass)) {
+                this.setOpen(true);
+                return true;
+            }
         } else {
             if (!this.isOpen()) {
-                return this.skipassManager.isValid(skipass);
+                if (this.skipassManager.isValid(skipass)) {
+                    this.setOpen(true);
+                    return true;
+                }
             } else {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * Close the gate.
+     */
+    public void close() {
+        this.open = false;
+    }
+
+    /**
+     * Run the gate, keep it closed.
+     */
+    public void run() {
+        try {
+            while (this.isInterrupted()) {
+                if (this.isOpen()) {
+                    Thread.sleep(500);
+                    this.close();
+                }
+            }
+        } catch (InterruptedException ie) {
+
         }
     }
 
