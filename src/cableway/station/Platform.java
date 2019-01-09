@@ -36,7 +36,7 @@ import java.awt.event.ActionListener;
  * @author giuliobosco
  * @version 1.1.2
  */
-public class Platoform extends Thread implements ActionListener {
+public class Platform extends Thread implements ActionListener {
     // ------------------------------------------------------------------------------------ Costants
 
     /**
@@ -111,7 +111,7 @@ public class Platoform extends Thread implements ActionListener {
      *
      * @param cabin Platform cabin.
      */
-    public Platoform(Cabin cabin, double cablePosition) {
+    public Platform(Cabin cabin, double cablePosition) {
         this.cabin = cabin;
         this.cablePosition = cablePosition;
         this.internalDoorOpen = false;

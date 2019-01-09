@@ -74,12 +74,12 @@ public class Station extends Thread {
     /**
      * Platform for cabin 0.
      */
-    private Platoform platform0;
+    private Platform platform0;
 
     /**
      * Platform for cabin 1.
      */
-    private Platoform platform1;
+    private Platform platform1;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -147,8 +147,8 @@ public class Station extends Thread {
      * @throws CablewayException Cableway exception.
      */
     private void initUpperStation(Cabin cabin0, Cabin cabin1) throws CablewayException {
-        this.platform0 = new Platoform(cabin0, cabin0.getCable().getLength());
-        this.platform1 = new Platoform(cabin1, 0);
+        this.platform0 = new Platform(cabin0, cabin0.getCable().getLength());
+        this.platform1 = new Platform(cabin1, 0);
     }
 
     /**
@@ -159,8 +159,8 @@ public class Station extends Thread {
      * @throws CablewayException Cableway exception.
      */
     private void initLowerStation(Cabin cabin0, Cabin cabin1) throws CablewayException {
-        this.platform0 = new Platoform(cabin0, 0);
-        this.platform1 = new Platoform(cabin1, cabin1.getCable().getLength());
+        this.platform0 = new Platform(cabin0, 0);
+        this.platform1 = new Platform(cabin1, cabin1.getCable().getLength());
     }
 
     /**
