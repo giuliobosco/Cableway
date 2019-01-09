@@ -32,12 +32,14 @@ import cableway.people.PeopleSet;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Cableway station class.
  *
  * @author giuliobosco
- * @version 1.1
+ * @version 1.1.1
  */
 public class Station extends Thread implements ActionListener {
     // ------------------------------------------------------------------------------------ Costants
@@ -89,6 +91,11 @@ public class Station extends Thread implements ActionListener {
      * Cableway action mangaer.
      */
     private CablewayActionManager cablewayActionManager;
+
+    /**
+     * List of the gates for this station.
+     */
+    private List<Gate> gates;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -146,6 +153,33 @@ public class Station extends Thread implements ActionListener {
         return this.inPeople;
     }
 
+    /**
+     * Set the gates of the station.
+     *
+     * @param gates Gates of the station.
+     */
+    public void setGates(List<Gate> gates) {
+        this.gates = gates;
+    }
+
+    /**
+     * Get the gates of the station.
+     *
+     * @return Gates of the station.
+     */
+    private List<Gate> getGates() {
+        return this.gates;
+    }
+
+    /**
+     * Add a gate to the list of gates.
+     *
+     * @param gate Gate to add.
+     */
+    public void addGate(Gate gate) {
+        this.getGates().add(gate);
+    }
+
     // -------------------------------------------------------------------------------- Constructors
 
     /**
@@ -183,7 +217,8 @@ public class Station extends Thread implements ActionListener {
      */
     public Station(int position, Cabin cabin0, Cabin cabin1, CablewayActionManager cablewayActionManager) throws CablewayException {
         this.cablewayActionManager = cablewayActionManager;
-
+        this.setGates(new ArrayList<>());
+        
         if (cabin0 != cabin1) {
             if (cabin0.getCable() == cabin1.getCable()) {
                 if (position == LOWER_STATION) {
@@ -245,6 +280,11 @@ public class Station extends Thread implements ActionListener {
         } catch (CablewayException cablewayException) {
             this.cablewayActionManager.exceptionThrower(cablewayException);
         }
+    }
+
+    @Override
+    public void run() {
+
     }
 
     // --------------------------------------------------------------------------- Static Components
