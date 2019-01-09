@@ -30,13 +30,16 @@ import cableway.cabin.Cabin;
 import cableway.cable.Cable;
 import cableway.people.PeopleSet;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * Cableway station class.
  *
  * @author giuliobosco
  * @version 1.1
  */
-public class Station extends Thread {
+public class Station extends Thread implements ActionListener {
     // ------------------------------------------------------------------------------------ Costants
 
     /**
@@ -199,7 +202,51 @@ public class Station extends Thread {
     }
 
     // -------------------------------------------------------------------------------- Help Methods
+
+    /**
+     * Move the people from the ready people to the cabin, from the in people to the ready people.
+     *
+     * @param cabin Destination cabin of the people.
+     * @throws CablewayException Cableway exception, errors on the cableway
+     */
+    private void movePeople(Cabin cabin) throws CablewayException {
+        cabin.setPeople(this.getReadyPeople());
+
+        if (this.isInPeopleActive()) {
+            this.setReadyPeople(this.getInPeople());
+        }
+
+        this.getInPeople().clear();
+    }
+
     // ----------------------------------------------------------------------------- General Methods
+
+    /**
+     * Action performed.
+     *
+     * @param e Action event.
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            if (e.getSource().getClass() == Cabin.class) {
+                if (e.getActionCommand().equals(Cabin.ARRIVED)) {
+                    if (this.platform0.isCabinHere()) {
+                        this.platform0.getCabin().emptyPeople();
+
+                        this.movePeople(this.platform0.getCabin());
+                    } else if (this.platform1.isCabinHere()) {
+                        this.platform1.getCabin().emptyPeople();
+
+                        this.movePeople(this.platform0.getCabin());
+                    }
+                }
+            }
+        } catch (CablewayException cablewayException) {
+            this.cablewayActionManager.exceptionThrower(cablewayException);
+        }
+    }
+
     // --------------------------------------------------------------------------- Static Components
 
 }
