@@ -33,10 +33,21 @@ import cableway.people.PeopleSet;
  * Cableway station class.
  *
  * @author giuliobosco
- * @version 1.0.3
+ * @version 1.1
  */
 public class Station extends Thread {
     // ------------------------------------------------------------------------------------ Costants
+
+    /**
+     * Cableway upper station identifier.
+     */
+    public static final int UPPER_STATION = 0;
+
+    /**
+     * Cableway lower station identifier.
+     */
+    public static final int LOWER_STATION = 1;
+
     // ---------------------------------------------------------------------------------- Attributes
 
     /**
@@ -129,29 +140,52 @@ public class Station extends Thread {
     // -------------------------------------------------------------------------------- Constructors
 
     /**
-     * Create the station with the cable and the two cabins.
+     * Init upper platform.
      *
-     * @param cable      Cableway cable.
-     * @param platform0 Cableway station platform 0.
-     * @param platform1 Cableway station platform 1.
+     * @param cabin0 Cableway cabin 0.
+     * @param cabin1 Cableway cabin 1.
+     * @throws CablewayException Cableway exception.
+     */
+    private void initUpperStation(Cabin cabin0, Cabin cabin1) throws CablewayException {
+        this.platform0 = new Platoform(cabin0, cabin0.getCable().getLength());
+        this.platform1 = new Platoform(cabin1, 0);
+    }
+
+    /**
+     * Init lower platform.
+     *
+     * @param cabin0 Cableway cabin 0.
+     * @param cabin1 Cableway cabin 1.
+     * @throws CablewayException Cableway exception.
+     */
+    private void initLowerStation(Cabin cabin0, Cabin cabin1) throws CablewayException {
+        this.platform0 = new Platoform(cabin0, 0);
+        this.platform1 = new Platoform(cabin1, cabin1.getCable().getLength());
+    }
+
+    /**
+     * Create the station with the position of the station and the two cabins.
+     *
+     * @param position Position of the cableway station.
+     * @param cabin0   Cableway cabin 0.
+     * @param cabin1   Cableway cabin 1.
      * @throws CablewayException Cableway exception, error with the cabin or the cable.
      */
-    public Station(Cable cable, Platoform platform0, Platoform platform1) throws CablewayException {
-        if (platform0 != platform1) {
-            if (platform0.getCabin().getCable() == cable && platform1.getCabin().getCable() == cable) {
-                if (platform0.getCabin() != platform1.getCabin()) {
-                    this.cable = cable;
-
-                    this.platform0 = platform0;
-                    this.platform1 = platform1;
+    public Station(int position, Cabin cabin0, Cabin cabin1) throws CablewayException {
+        if (cabin0 != cabin1) {
+            if (cabin0.getCable() == cabin1.getCable()) {
+                if (position == LOWER_STATION) {
+                    this.initLowerStation(cabin0, cabin1);
+                } else if (position == UPPER_STATION) {
+                    this.initUpperStation(cabin0, cabin1);
                 } else {
-                    throw new CablewayException("Cabins cant't be the same.", CablewayException.FATAL);
+                    throw new CablewayException("Wrong station position", CablewayException.FATAL);
                 }
             } else {
                 throw new CablewayException("Wrong cable connected to the cabins.", CablewayException.FATAL);
             }
         } else {
-            throw new CablewayException("Platforms can't be the same", CablewayException.FATAL);
+            throw new CablewayException("Cabins cant't be the same.", CablewayException.FATAL);
         }
     }
 
