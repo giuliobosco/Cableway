@@ -24,6 +24,7 @@
 
 package cableway.station;
 
+import cableway.CablewayActionManager;
 import cableway.CablewayException;
 import cableway.cabin.Cabin;
 import cableway.cable.Cable;
@@ -80,6 +81,11 @@ public class Station extends Thread {
      * Platform for cabin 1.
      */
     private Platform platform1;
+
+    /**
+     * Cableway action mangaer.
+     */
+    private CablewayActionManager cablewayActionManager;
 
     // --------------------------------------------------------------------------- Getters & Setters
 
@@ -147,8 +153,8 @@ public class Station extends Thread {
      * @throws CablewayException Cableway exception.
      */
     private void initUpperStation(Cabin cabin0, Cabin cabin1) throws CablewayException {
-        this.platform0 = new Platform(cabin0, cabin0.getCable().getLength());
-        this.platform1 = new Platform(cabin1, 0);
+        this.platform0 = new Platform(cabin0, cabin0.getCable().getLength(), this.cablewayActionManager);
+        this.platform1 = new Platform(cabin1, 0, this.cablewayActionManager);
     }
 
     /**
@@ -159,19 +165,22 @@ public class Station extends Thread {
      * @throws CablewayException Cableway exception.
      */
     private void initLowerStation(Cabin cabin0, Cabin cabin1) throws CablewayException {
-        this.platform0 = new Platform(cabin0, 0);
-        this.platform1 = new Platform(cabin1, cabin1.getCable().getLength());
+        this.platform0 = new Platform(cabin0, 0, this.cablewayActionManager);
+        this.platform1 = new Platform(cabin1, cabin1.getCable().getLength(), this.cablewayActionManager);
     }
 
     /**
      * Create the station with the position of the station and the two cabins.
      *
-     * @param position Position of the cableway station.
-     * @param cabin0   Cableway cabin 0.
-     * @param cabin1   Cableway cabin 1.
+     * @param position              Position of the cableway station.
+     * @param cabin0                Cableway cabin 0.
+     * @param cabin1                Cableway cabin 1.
+     * @param cablewayActionManager Cableway Action Manager.
      * @throws CablewayException Cableway exception, error with the cabin or the cable.
      */
-    public Station(int position, Cabin cabin0, Cabin cabin1) throws CablewayException {
+    public Station(int position, Cabin cabin0, Cabin cabin1, CablewayActionManager cablewayActionManager) throws CablewayException {
+        this.cablewayActionManager = cablewayActionManager;
+
         if (cabin0 != cabin1) {
             if (cabin0.getCable() == cabin1.getCable()) {
                 if (position == LOWER_STATION) {
