@@ -45,17 +45,17 @@ public class Cabin extends Thread {
     /**
      * Cabin ready to start command.
      */
-    public final static String READY = "READY";
+    public final static String READY = "CABIN_READY";
 
     /**
      * Cabin moved command.
      */
-    public final static String MOVED = "MOVED";
+    public final static String MOVED = "CABIN_MOVED";
 
     /**
      * Cabin arrived to platform command.
      */
-    public final static String ARRIVED = "ARRIVED";
+    public final static String ARRIVED = "CABIN_ARRIVED";
 
     /**
      * Max weight in the cabin.
