@@ -33,7 +33,7 @@ import cableway.people.PeopleSet;
  * Cableway station class.
  *
  * @author giuliobosco
- * @version 1.0.2
+ * @version 1.0.3
  */
 public class Station extends Thread {
     // ------------------------------------------------------------------------------------ Costants
@@ -56,16 +56,6 @@ public class Station extends Thread {
     private PeopleSet inPeople;
 
     /**
-     * Cableway cabin 0.
-     */
-    private Cabin cabin0;
-
-    /**
-     * Cableway cabin 1.
-     */
-    private Cabin cabin1;
-
-    /**
      * Cableway cable.
      */
     private Cable cable;
@@ -73,7 +63,7 @@ public class Station extends Thread {
     /**
      * Platform for cabin 0.
      */
-    private Platoform platoform0;
+    private Platoform platform0;
 
     /**
      * Platform for cabin 1.
@@ -141,29 +131,27 @@ public class Station extends Thread {
     /**
      * Create the station with the cable and the two cabins.
      *
-     * @param cable Cableway cable.
-     * @param cabin0 Cableway cabin 0.
-     * @param cabin1 Cableway cabin 1.
+     * @param cable      Cableway cable.
+     * @param platform0 Cableway station platform 0.
+     * @param platform1 Cableway station platform 1.
      * @throws CablewayException Cableway exception, error with the cabin or the cable.
      */
-    public Station(Cable cable, Cabin cabin0, Cabin cabin1, Platoform platoform0, Platoform platoform1) throws CablewayException {
-        if (cabin0 != cabin1) {
-            if (cabin0.getCable() == cable && cabin1.getCable() == cable) {
-                this.cable = cable;
-                this.cabin0 = cabin0;
-                this.cabin1 = cabin1;
+    public Station(Cable cable, Platoform platform0, Platoform platform1) throws CablewayException {
+        if (platform0 != platform1) {
+            if (platform0.getCabin().getCable() == cable && platform1.getCabin().getCable() == cable) {
+                if (platform0.getCabin() != platform1.getCabin()) {
+                    this.cable = cable;
 
-                if (platoform0 != platoform1) {
-                    this.platoform0 = platoform0;
-                    this.platoform1 = platoform1;
+                    this.platform0 = platform0;
+                    this.platform1 = platform1;
                 } else {
-                    throw new CablewayException("Platforms can't be the same", CablewayException.FATAL);
+                    throw new CablewayException("Cabins cant't be the same.", CablewayException.FATAL);
                 }
             } else {
                 throw new CablewayException("Wrong cable connected to the cabins.", CablewayException.FATAL);
             }
         } else {
-            throw new CablewayException("Cabins cant't be the same.", CablewayException.FATAL);
+            throw new CablewayException("Platforms can't be the same", CablewayException.FATAL);
         }
     }
 
