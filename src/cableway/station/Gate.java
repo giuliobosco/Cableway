@@ -149,6 +149,7 @@ public class Gate extends Thread {
     /**
      * Run the gate, keep it closed.
      */
+    @Override
     public void run() {
         try {
             while (this.isInterrupted()) {
